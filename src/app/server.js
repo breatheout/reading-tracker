@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get("/", (request, response) => {
+app.get("/api/test", (request, response) => {
   response.json({ info: "Node.js,Express, and Postgres API" });
 });
 
