@@ -10,7 +10,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "devStart": "nodemon server.js",
-    "devStartAuth": "nodemon authServer.js",
     "test2": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "ng build --prod"
   },
