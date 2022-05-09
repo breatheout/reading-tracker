@@ -4,7 +4,7 @@ import { User } from '../Models/user.model';
 import { BookPost } from '../Models/bookpost.model';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
-
+import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root',
 })
@@ -37,36 +37,55 @@ export class UserService {
 
   register(user: User): Promise<User> {
     return this.http
-      .post<User>('http://localhost:3000/api/register', user)
+      .post<User>(
+        'https://reading-tracker-application.herokuapp.com/api/register',
+        user
+      )
       .toPromise();
   }
 
   updatePassword(passwords: {}): Promise<string> {
     return this.http
-      .put<string>(this.url + '/password', passwords, this.authHeader)
+      .put<string>(
+        'https://reading-tracker-application.herokuapp.com/api/password',
+        passwords,
+        this.authHeader
+      )
       .toPromise();
   }
 
   downloadUserData() {
     return this.http
-      .get('http://localhost:3000/api/download', this.httpDownloadOptions)
+      .get(
+        'https://reading-tracker-application.herokuapp.com/api/download',
+        this.httpDownloadOptions
+      )
       .toPromise();
   }
 
   deleteUser() {
     return this.http
-      .delete('http://localhost:3000/api/delete', this.authHeader)
+      .delete(
+        'https://reading-tracker-application.herokuapp.com/api/delete',
+        this.authHeader
+      )
       .toPromise();
   }
 
   getUserInfo() {
-    return this.http.get<any>(this.url + '/info', this.authHeader).toPromise();
+    return this.http
+      .get<any>(
+        this.url +
+          'https://reading-tracker-application.herokuapp.com/api/user/info',
+        this.authHeader
+      )
+      .toPromise();
   }
 
   getUserLibrary(type?: string, payload?: Array<string>) {
     return this.http
       .post<any>(
-        'http://localhost:3000/api/user/library/',
+        'https://reading-tracker-application.herokuapp.com/api/user/library/',
         {
           payload,
           type,
