@@ -11,7 +11,7 @@
     "test": "ng test",
     "devStart": "nodemon server.js",
     "test2": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build --configuration=production"
   },
   "keywords": [],
   "author": "",
