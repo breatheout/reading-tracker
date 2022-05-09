@@ -36,11 +36,24 @@ db.sync()
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://reading-tracker-application.herokuapp.com/",
+    origin: "*",
     methods: ["GET, POST, PUT", "DELETE"],
     credentials: true,
   })
 );
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+app.get("/", (request, response) => {
+  response.json({ info: "Node.js,Express, and Postgres API" });
+});
 
 // DOWNLOAD USER DATA AS CSV - JWT - AMENDED - 06-05-2022
 app.get("api/download", authenticateToken, async (req, res) => {
