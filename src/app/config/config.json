@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "readingtracker",
-    "host": "127.0.0.1",
+    "username": "ba13f3f26f4e8b",
+    "password": "7ee12528",
+    "database": "heroku_21119f7e1878890",
+    "host": "eu-cdbr-west-02.cleardb.net",
     "dialect": "mysql"
   }
 }

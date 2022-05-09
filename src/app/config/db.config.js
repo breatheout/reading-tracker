@@ -19,11 +19,11 @@ module.exports = sequelize;*/
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
-  "heroku_7643ec736354xxx",
-  "b7e2437887xxxa",
-  "200xxx6",
+  "heroku_21119f7e1878890",
+  "ba13f3f26f4e8b",
+  "7ee12528",
   {
-    host: "heroku_7643ec736354xxx",
+    host: "eu-cdbr-west-02.cleardb.net",
     dialect: "mysql",
   }
 );

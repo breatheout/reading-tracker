@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://reading-tracker-application.herokuapp.com/api',
+  Base_Url: 'https://reading-tracker-application.herokuapp.com/',
 };

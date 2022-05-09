@@ -16,7 +16,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.controller = 'login';
-    this.url = 'http://localhost:3000/api/' + this.controller;
+    this.url =
+      'https://reading-tracker-application-be.herokuapp.com/api/' +
+      this.controller;
   }
 
   login(auth: Auth): Promise<AuthToken> {

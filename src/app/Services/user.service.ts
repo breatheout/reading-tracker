@@ -38,7 +38,7 @@ export class UserService {
   register(user: User): Promise<User> {
     return this.http
       .post<User>(
-        'https://reading-tracker-application.herokuapp.com/api/register',
+        'https://reading-tracker-application-be.herokuapp.com/api/register',
         user
       )
       .toPromise();
@@ -47,7 +47,7 @@ export class UserService {
   updatePassword(passwords: {}): Promise<string> {
     return this.http
       .put<string>(
-        'https://reading-tracker-application.herokuapp.com/api/password',
+        'https://reading-tracker-application-be.herokuapp.com/api/password',
         passwords,
         this.authHeader
       )
@@ -57,7 +57,7 @@ export class UserService {
   downloadUserData() {
     return this.http
       .get(
-        'https://reading-tracker-application.herokuapp.com/api/download',
+        'https://reading-tracker-application-be.herokuapp.com/api/download',
         this.httpDownloadOptions
       )
       .toPromise();
@@ -66,7 +66,7 @@ export class UserService {
   deleteUser() {
     return this.http
       .delete(
-        'https://reading-tracker-application.herokuapp.com/api/delete',
+        'https://reading-tracker-application-be.herokuapp.com/api/delete',
         this.authHeader
       )
       .toPromise();
@@ -76,7 +76,7 @@ export class UserService {
     return this.http
       .get<any>(
         this.url +
-          'https://reading-tracker-application.herokuapp.com/api/user/info',
+          'https://reading-tracker-application-be.herokuapp.com/api/user/info',
         this.authHeader
       )
       .toPromise();
@@ -85,7 +85,7 @@ export class UserService {
   getUserLibrary(type?: string, payload?: Array<string>) {
     return this.http
       .post<any>(
-        'https://reading-tracker-application.herokuapp.com/api/user/library/',
+        'https://reading-tracker-application-be.herokuapp.com/api/user/library/',
         {
           payload,
           type,
@@ -97,7 +97,11 @@ export class UserService {
 
   checkUserHasBook(bookId: string): any {
     return this.http
-      .get(this.url + '/book/' + bookId, this.authHeader)
+      .get(
+        'https://reading-tracker-application-be.herokuapp.com/api/user/book/' +
+          bookId,
+        this.authHeader
+      )
       .toPromise();
   }
 }

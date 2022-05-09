@@ -36,7 +36,7 @@ db.sync()
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:4200",
+    origin: "https://reading-tracker-application.herokuapp.com/",
     methods: ["GET, POST, PUT", "DELETE"],
     credentials: true,
   })
