@@ -15,8 +15,8 @@ const db = require("./config/db.config"); // tu variable db se llama sequelize e
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
-const Users = require("./models/Users");
-const Books = require("./models/Books");
+const Users = require("./sequelize-models/Users");
+const Books = require("./sequelize-models/Books");
 const CsvParser = require("json2csv").Parser;
 
 /* */
