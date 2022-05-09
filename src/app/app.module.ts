@@ -19,8 +19,8 @@ import { StatsComponent } from './Component/stats/stats.component';
 import { AuthInterceptorService } from './Services/auth-interceptor.service';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartComponent } from './Component/chart/chart.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { environment } from '../environments/environment';
     StatsComponent,
     ChartComponent,
   ],
-  exports: [],
+  exports: [ChartComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -45,12 +45,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     FormsModule,
     NgChartsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
+    RouterModule,
   ],
   providers: [
     /*    {
