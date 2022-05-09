@@ -9,7 +9,11 @@ app.use(express.static(__dirname + "/dist/reading-tracker"));
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname + "/dist/reading-tracker/index.html"));
 });
-app.listen(process.env.PORT || 8080);
+
+const PORT = process.env.PORT || "3000";
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
 
 const db = require("./config/db.config"); // tu variable db se llama sequelize en el tutorial  https://www.youtube.com/watch?v=ExTZYpyAn6s
 const jwt = require("jsonwebtoken");
