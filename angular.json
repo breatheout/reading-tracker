@@ -32,7 +32,6 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "allowedCommonJsDependencies": ["chart.js"],
-            "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
