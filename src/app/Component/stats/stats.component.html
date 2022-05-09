@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="container my-3 pt-2 background-container">
+    <h1 class="h4 mb-0">Your personal book stats</h1>
+  </div>
+  <app-chart
+    class="background-container-stats mb-3"
+    #chartchild
+    [top5]="top5Genres"
+    [salesData]="salesData"
+  ></app-chart>
+</div>

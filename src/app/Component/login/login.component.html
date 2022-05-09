@@ -1,0 +1,60 @@
+<div>
+  <p id="loginFeedback"></p>
+</div>
+
+<div class="container d-flex justify-content-center">
+  <form class="row g-3" [formGroup]="form" (ngSubmit)="login()">
+    <div class="col-12">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        placeholder="Your username"
+        formControlName="username"
+      />
+
+      <div *ngIf="username.errors">
+        <span
+          style="color: red"
+          *ngIf="username.errors && (username.touched || username.dirty)"
+        >
+          <span *ngIf="username.errors.required">Username is required</span>
+          <div *ngIf="username.errors.pattern">
+            Username not a valid format.
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="******************"
+        formControlName="password"
+      />
+
+      <div *ngIf="password.errors">
+        <span
+          style="color: red"
+          *ngIf="password.errors && (password.touched || password.dirty)"
+        >
+          <span *ngIf="password.errors.required">Password is required</span>
+          <span *ngIf="password.errors.minlength"
+            >Password must be greater tha 8 characters</span
+          >
+          <span *ngIf="password.errors.maxlength"
+            >Password can be max 16 characters long</span
+          >
+        </span>
+      </div>
+    </div>
+
+    <div class="col-12 d-flex justify-content-center">
+      <button type="submit" class="btn btn-dark">Sign in</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,77 @@
+<div>
+  <p id="registerFeedback"></p>
+</div>
+
+<div class="container">
+  <h1 class="text-center my-4">
+    Account Management
+    <small class="text-muted border-container">{{ username }}</small>
+  </h1>
+
+  <div class="border-container p-5 mb-3">
+    <h2>Change your password</h2>
+
+    <form
+      action=""
+      class="my-4"
+      [formGroup]="passwordForm"
+      (ngSubmit)="updatePassword()"
+    >
+      <div class="form-group col-md-6 my-3">
+        <label for="password">Current password: </label>
+        <input
+          type="password"
+          [formControl]="passwordOld"
+          class="form-control"
+        />
+        <div
+          *ngIf="passwordNew.errors && isValidForm != null && !isValidForm"
+          [ngClass]="'error'"
+        >
+          <div *ngIf="password.errors.required">Password is required</div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 8 characters long.
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-6 my-3">
+        <label for="password">New password: </label>
+        <input
+          type="password"
+          [formControl]="passwordNew"
+          class="form-control"
+        />
+        <div
+          *ngIf="passwordNew.errors && isValidForm != null && !isValidForm"
+          [ngClass]="'error'"
+        >
+          <div *ngIf="password.errors.required">Password is required</div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 8 characters long.
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-dark btn-sm">Update password</button>
+    </form>
+
+    <h2 class="">Download your data</h2>
+
+    <form action="" class="my-4" (ngSubmit)="downloadUserData()">
+      <p>You can download your book library as a CSV file</p>
+      <button type="submit" class="btn btn-dark btn-sm">Download</button>
+    </form>
+    <h2>Delete your account</h2>
+
+    <form action="" class="my-4" (ngSubmit)="deleteAccount()">
+      <p>
+        This action will permanently delete your account and all associated data
+      </p>
+      <p>
+        Please make sure to download a copy of your library before proceeding
+      </p>
+      <button type="submit" class="btn btn-danger btn-sm">
+        Delete account
+      </button>
+    </form>
+  </div>
+</div>

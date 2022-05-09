@@ -1,0 +1,64 @@
+.thumbnail {
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+  transition: all 0.2s;
+  /*transform: translate(0, -16px);*/
+  animation: zoomin 0.5s;
+}
+
+body {
+  font-family: "Roboto", sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Lato", sans-serif !important;
+}
+
+.border-container {
+  /*align-items: center;
+    background: linear-gradient(90deg, #9000a8, #06f);
+    background-size: 150% 100%;
+    display: flex;
+    justify-content: center;
+    transition: all 1s;
+    transition: all 0.4s ease-in-out;*/
+
+  border: 10px solid;
+  padding: 3px;
+  border-image-slice: 1;
+  border-width: 1px;
+  border-radius: 25px;
+  border-style: solid;
+  /*border-image-source: linear-gradient(to left, #00c853, #b2ff59);*/
+  border-image-source: linear-gradient(45deg, #0ff0b3, #036ed9 80%);
+}
+
+.background-container {
+  padding: 5px 0;
+  color: white;
+  align-items: center;
+  background: linear-gradient(90deg, #743ad5, #d53a9d);
+  background-size: 150% 100%;
+  display: flex;
+  justify-content: center;
+  transition: all 1s;
+  transition: all 0.4s ease-in-out;
+  border-radius: 10px;
+}
+
+.background-container-stats {
+  padding: 5px 0;
+  color: white;
+  align-items: center;
+  background: linear-gradient(90deg, #0ff0b3, #036ed9 80%);
+  background-size: 150% 100%;
+  display: flex;
+  justify-content: center;
+  transition: all 1s;
+  transition: all 0.4s ease-in-out;
+  border-radius: 10px;
+}

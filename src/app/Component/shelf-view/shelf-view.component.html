@@ -1,0 +1,159 @@
+<!--ALERT BAR-->
+<div
+  *ngIf="shelfDisplay == ''"
+  class="alert alert-warning"
+  class="alert alert-warning alert-dismissible fade show"
+  role="alert"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="currentColor"
+    class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
+    viewBox="0 0 16 16"
+    role="img"
+    aria-label="Warning:"
+  >
+    <path
+      d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+    />
+  </svg>
+  <strong>There are no books in your shelves!</strong> You can add books by
+  navigating to Search in the navigation bar and typing the title of a book.
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<!--SHELF NAV BAR-->
+<div class="container">
+  <div class="w-100 my-2 mx-auto">
+    <div
+      class="btn-group mx-auto w-100 mx-auto"
+      role="group"
+      aria-label="Basic radio toggle button group"
+    >
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio1"
+        autocomplete="off"
+        (click)="goToReading()"
+      />
+      <label class="btn btn-outline-dark" for="btnradio1">Reading</label>
+
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio2"
+        autocomplete="off"
+        (click)="goToWantToRead()"
+      />
+      <label class="btn btn-outline-dark" for="btnradio2">Want to read</label>
+
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio3"
+        autocomplete="off"
+        (click)="goToRead()"
+      />
+      <label class="btn btn-outline-dark" for="btnradio3">Read</label>
+    </div>
+  </div>
+
+  <div *ngIf="shelfType != undefined && shelfDisplay != ''">
+    <form action="" class="row g-3">
+      <div class="col-auto">
+        <label for="sortFilter">Sort by</label>
+        <select
+          [formControl]="sortFilter"
+          class="form-select form-select-sm"
+          (change)="getLibrary()"
+        >
+          <option *ngIf="shelfType == 'reading'" value="dateStart">
+            date started
+          </option>
+          <option *ngIf="shelfType == 'read'" value="dateFinished">
+            date finished
+          </option>
+          <option *ngIf="shelfType == 'want-to-read'" value="createdAt">
+            date added
+          </option>
+          <option value="title">title</option>
+          <option *ngIf="shelfType == 'read'" value="rating">rating</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <label for="orderFilter">in order</label>
+        <select
+          [formControl]="orderFilter"
+          class="form-select form-select-sm"
+          aria-label=".form-select-sm example"
+          (change)="getLibrary()"
+        >
+          <option value="ASC">ascending</option>
+          <option value="DESC">descending</option>
+        </select>
+      </div>
+    </form>
+    <!--CARD-->
+    <div *ngFor="let book of shelfDisplay">
+      <div class="my-3 mx-auto">
+        <div class="row d-flex justify-content-center text-center">
+          <div
+            class="col-sm col-md-auto text-center flex justify-content-center pt-4"
+          >
+            <a [routerLink]="['/book/' + book.bookId]"
+              ><img src="{{ book.cover }}" class="thumbnail" alt="Cover image"
+            /></a>
+          </div>
+          <div class="col-sm col-md-auto">
+            <div class="card-body book-card">
+              <h5 class="card-title" *ngIf="book.title">
+                {{ book.title }}
+              </h5>
+              <p class="card-text">By {{ book.authors }}</p>
+
+              <p class="text-muted" *ngIf="book.pageCount">
+                {{ book.pageCount }} pages
+              </p>
+              <p *ngIf="book.rating != null" style="color: rgb(255, 0, 140)">
+                {{ book.rating / 2 | number: "1.0-1"
+                }}<span class="starr"></span>
+              </p>
+              <!--GO TO BOOK-->
+
+              <form
+                class="row d-flex justify-content-center"
+                (ngSubmit)="goToBook(book.bookId)"
+              >
+                <button class="btn btn-dark w-50" type="submit">
+                  Go to book
+                </button>
+              </form>
+              <!--DROPDOWN SELECT-->
+              <form class="mt-2" (ngSubmit)="remove(book.bookId)">
+                <button class="btn btn-link" type="submit">
+                  remove from shelf
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="d-flex flex-row flex-wrap justify-content-center">
+    <div *ngFor="let book of shelfDisplay">
+      <img class="p-2 img-fluid" src="{{ book.cover }}" alt="book cover" />
+    </div>
+  </div>-->
+  </div>
+</div>

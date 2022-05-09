@@ -1,0 +1,274 @@
+<div class="text-center" *ngIf="!finishedLoading">
+  <div
+    class="spinner-border"
+    role="status"
+    style="width: 3rem; height: 3rem; margin: 5rem auto"
+  >
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="container" *ngIf="finishedLoading">
+  <!--CARD-->
+  <div class="my-5 mx-auto" style="max-width: 600px">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="{{ book.volumeInfo.imageLinks.thumbnail }}"
+          class="img-fluid rounded-start"
+          alt="Cover image"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title" *ngIf="book.volumeInfo.title">
+            {{ book.volumeInfo.title }}
+          </h5>
+          <p class="card-text">By {{ book.volumeInfo.authors }}</p>
+
+          <p class="card-text" *ngIf="book.volumeInfo.pageCount">
+            {{ book.volumeInfo.pageCount }} pages
+          </p>
+          <p class="card-text" *ngIf="book.volumeInfo.industryIdentifiers">
+            <small class="text-muted">
+              ISBN
+              {{ book.volumeInfo.industryIdentifiers[0].identifier }}</small
+            >
+          </p>
+          <p class="card-text">
+            <small class="text-muted">
+              This information is applicable for the edition pubished by
+              {{ book.volumeInfo.publisher }} on
+              {{ book.volumeInfo.publishedDate }}</small
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--DROPDOWN SELECT-->
+    <form>
+      <select
+        class="form-select w-25"
+        [(ngModel)]="ngDropdown"
+        name="shelf status"
+        id="shelfStatus"
+        aria-label="shelf status"
+        (change)="addBook()"
+      >
+        <option value="default" disabled>shelve book</option>
+        <option value="want to read">want to read</option>
+        <option value="reading">reading</option>
+        <option value="read">read</option>
+        <option value="unfinished">not finished</option>
+      </select>
+    </form>
+  </div>
+
+  <div class="mx-auto my-5">
+    <button class="">
+      <svg
+        class="fill-current w-4 h-4 mr-2"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+      >
+        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+      </svg>
+      <a href="{{ book.selfLink }}" target="_blank">JSON Data</a>
+    </button>
+  </div>
+
+  <!--DATE SELECTOR-->
+  <p class="text-center" *ngIf="ngDropdown != 'want to read'">
+    <a
+      class="btn btn-primary"
+      data-bs-toggle="collapse"
+      href="#collapseExample"
+      role="button"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+    >
+      Dates / Rating / Notes
+    </a>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card color-block">
+      <form
+        class="row g-3 mt-3 mb-5 mx-auto"
+        action=""
+        (submit)="updateDates()"
+      >
+        <div
+          class="col-md-6 my-3 mx-auto"
+          *ngIf="
+            bookInLibrary != undefined && bookInLibrary.shelf != 'want to read'
+          "
+        >
+          <div class="form-group">
+            <label for="start">Start date:</label>
+
+            <input
+              class="form-control"
+              type="date"
+              id="start"
+              name="trip-start"
+              value="{{ ngDateInputStart }}"
+              min="1900-01-01"
+              max="{{ ngDateInputStart }}"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="end">Finished date:</label>
+
+            <input
+              [(ngModel)]="ngDateInputEnd"
+              class="form-control"
+              type="date"
+              id="end"
+              name="trip-end"
+              value="{{ ngDateInputEnd }}"
+              min=""
+              max=""
+            />
+          </div>
+        </div>
+
+        <div class="form-group form-row">
+          <div class="col-sm-auto my-2 mx-auto text-center">
+            <label class="" for="rating">Add your rating:</label>
+            <!--
+            <input
+              class="form-control"
+              type="text"
+              id="rating"
+              name="rating"
+              value="{{ rating }}"
+            />
+            -->
+            <!--////////// STAR ////////////////////-->
+            <div class="rate" *ngIf="bookInLibrary !== undefined">
+              <input
+                type="radio"
+                id="rating10"
+                name="rating"
+                value="10"
+                [checked]="bookInLibrary[0].rating == 10"
+              /><label for="rating10" title="5 stars"></label>
+              <input
+                type="radio"
+                id="rating9"
+                name="rating"
+                value="9"
+                [checked]="bookInLibrary[0].rating === 9"
+              /><label class="half" for="rating9" title="4 1/2 stars"></label>
+              <input
+                type="radio"
+                id="rating8"
+                name="rating"
+                value="8"
+                [checked]="bookInLibrary[0].rating === 8"
+              /><label for="rating8" title="4 stars"></label>
+              <input
+                type="radio"
+                id="rating7"
+                name="rating"
+                value="7"
+                [checked]="bookInLibrary[0].rating === 7"
+              /><label class="half" for="rating7" title="3 1/2 stars"></label>
+              <input
+                type="radio"
+                id="rating6"
+                name="rating"
+                value="6"
+                [checked]="bookInLibrary[0].rating === 6"
+              /><label for="rating6" title="3 stars"></label>
+              <input
+                type="radio"
+                id="rating5"
+                name="rating"
+                value="5"
+                [checked]="bookInLibrary[0].rating === 5"
+              /><label class="half" for="rating5" title="2 1/2 stars"></label>
+              <input
+                type="radio"
+                id="rating4"
+                name="rating"
+                value="4"
+                [checked]="bookInLibrary[0].rating === 4"
+              /><label for="rating4" title="2 stars"></label>
+              <input
+                type="radio"
+                id="rating3"
+                name="rating"
+                value="3"
+                [checked]="bookInLibrary[0].rating === 3"
+              /><label class="half" for="rating3" title="1 1/2 stars"></label>
+              <input
+                type="radio"
+                id="rating2"
+                name="rating"
+                value="2"
+                [checked]="bookInLibrary[0].rating === 2"
+              /><label for="rating2" title="1 star"></label>
+              <input
+                type="radio"
+                id="rating1"
+                name="rating"
+                value="1"
+                [checked]="bookInLibrary[0].rating === 1"
+              /><label class="half" for="rating1" title="1/2 star"></label>
+            </div>
+
+            <!--////////////////////////////////////////////////-->
+          </div>
+        </div>
+
+        <div class="form-group form-row">
+          <div class="col-md-6 my-3 mx-auto">
+            <label class="" for="notes">Add your personal notes:</label>
+
+            <textarea
+              class="form-control"
+              type="text"
+              id="notes"
+              name="notes"
+              value="{{ notes }}"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!--GENRE AND SINOPSIS SECTION-->
+  <div class="text-center">
+    <h1 class="header-title">Genres</h1>
+
+    <div class="mx-auto my-5 px-6 pt-4 pb-2">
+      <span *ngFor="let genre of genres" class="badge rounded-pill bg-info">{{
+        genre
+      }}</span>
+      <p
+        *ngIf="
+          book.volumeInfo.categories === null ||
+          book.volumeInfo.categories === undefined
+        "
+      >
+        No information available at this time
+      </p>
+    </div>
+
+    <h1 class="header-title">Sinopsis</h1>
+
+    <div class="card color-block mx-auto my-5 text-start">
+      <p [innerHTML]="book.volumeInfo.description" class=""></p>
+      <p *ngIf="!book.volumeInfo.description">
+        No information available at this time
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="container mx-auto text-center">
+  <form class="mx-auto my-5 input-group mb-3">
+    <input
+      aria-label="Search books or authors"
+      class="p-2 w-15 rounded form-control"
+      type="text"
+      placeholder="Search books or authors"
+      #input
+    />
+  </form>
+
+  <!--<app-search-list bookTitle="{{result1}}" detectsChanges="{{loading}}"></app-search-list>-->
+
+  <!--<app-search-list bookTitle="{{result}}" detectsChanges="{{loading}}"></app-search-list>-->
+
+  <div
+    *ngIf="results !== undefined"
+    class="container mb-3 justify-content-center border-container"
+  >
+    <!--<h2 class="text-2xl font-bold">result</h2>-->
+    <h1 class="h2">
+      <span *ngIf="results !== undefined" class="results">Results</span>
+    </h1>
+
+    <div class="book-card" *ngFor="let result of results">
+      <a class="text-decoration-none" [routerLink]="['/book', result.id]">
+        <img
+          *ngIf="result.volumeInfo.imageLinks"
+          class="thumbnail"
+          src="{{ result.volumeInfo.imageLinks.thumbnail }}"
+        />
+        <!-- Create a conditional cover if imageLinks not available-->
+        <div class="author-info wrap">
+          <p class="gradient-text">
+            {{ result.volumeInfo.title }} <br />
+            By {{ result.volumeInfo.authors }}
+          </p>
+        </div>
+      </a>
+
+      <!--  <form class="w-50 m-auto" action="">
+
+        <select class="form-select" name="reading status" id="reading">
+          <option value="to-read">To read</option>
+          <option value="reading">Reading</option>
+          <option value="not-finished">Did not finish</option>
+        </select>
+      </form> -->
+
+      <form
+        class="row d-flex justify-content-center"
+        (ngSubmit)="goToBook(result.id)"
+      >
+        <button class="btn btn-dark w-50" type="submit">Go to book</button>
+      </form>
+    </div>
+  </div>
+</div>

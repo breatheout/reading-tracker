@@ -1,0 +1,16 @@
+.span-logo {
+  /*align-items: center;
+  background: linear-gradient(90deg, #9000a8, #06f);
+  background-size: 150% 100%;
+  display: flex;
+  justify-content: center;
+  transition: all 1s;
+  transition: all 0.4s ease-in-out;*/
+
+  border: 10px solid;
+  padding: 3px;
+  border-image-slice: 1;
+  border-width: 3px;
+
+  border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+}

@@ -1,0 +1,67 @@
+.thumbnail {
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+  transition: all 0.2s;
+  transform: translate(0, -16px);
+  animation: zoomin 0.5s;
+}
+.thumbnail:hover {
+  box-shadow: 0 6px 8px rgb(0 0 0 / 40%);
+  transform: translate(0, -16px) scale(1.1);
+}
+
+.author-info {
+  line-height: 1rem;
+  color: #393a3b;
+}
+
+.wrap {
+  width: 100%;
+}
+.gradient-text {
+  font-family: "Montserrat", "Roboto", "Noto", sans-serif;
+  background: linear-gradient(to right, #0ff0b3, #036ed9, springgreen);
+  background-size: 200% 200%;
+  animation: rainbow 2s ease-in-out infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  display: block;
+  text-align: center;
+  transition: color 0.2s ease-in-out;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+.gradient-text:hover {
+  color: rgba(0, 0, 0, 0);
+}
+@keyframes rainbow {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.book-card {
+  background: linear-gradient(#20ade540, rgba(0, 0, 0, 0));
+  margin: 5rem auto;
+  padding: 5rem auto;
+  width: 300px;
+  min-height: 200px;
+  height: fit-content;
+  border-radius: 25px;
+}
+
+.results {
+  font-size: 48px;
+  font-weight: 800;
+  background: -webkit-linear-gradient(45deg, #0ff0b3, #036ed9 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  text-transform: uppercase;
+}

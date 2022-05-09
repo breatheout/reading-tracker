@@ -1,0 +1,85 @@
+.color-block {
+  background: linear-gradient(#20ade540, rgba(0, 0, 0, 0));
+  margin: 5rem auto;
+  padding: 2rem;
+  height: fit-content;
+  border-radius: 25px;
+}
+
+.header-title {
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  width: 50%;
+  font-weight: 800;
+  background: -webkit-linear-gradient(45deg, #0ff0b3, #036ed9 80%);
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+  margin: 1rem auto;
+  text-transform: uppercase;
+}
+
+textarea {
+  height: 200px;
+}
+
+/**********************************************************/
+
+body {
+  margin: 5%;
+  text-align: center;
+  background: #111;
+  color: #333;
+}
+h1 {
+  font-size: 2em;
+  margin-bottom: 0.5rem;
+}
+
+/* Ratings widget */
+.rate {
+  display: block;
+  border: 0;
+  display: table;
+  margin: 0 auto;
+}
+/* Hide radio */
+.rate > input {
+  display: none;
+}
+/* Order correctly by floating highest to the right */
+.rate > label {
+  float: right;
+}
+/* The star of the show */
+.rate > label:before {
+  display: inline-block;
+  font-size: 2rem;
+  padding: 0.3rem 0.2rem;
+  margin: 0;
+  cursor: pointer;
+  font-family: FontAwesome;
+  content: "\f005 "; /* full star */
+}
+/* Zero stars rating */
+/*.rate > label:last-child:before {
+  content: "\f006 "; 
+}*/ /* empty star outline */
+/* Half star trick */
+.rate .half:before {
+  content: "\f089 "; /* half star no outline */
+  position: absolute;
+  padding-right: 0;
+}
+/* Click + hover color */
+input:checked ~ label, /* color current and previous stars on checked */
+label:hover, label:hover ~ label {
+  color: #ffae00;
+} /* color previous stars on hover */
+
+/* Hover highlights */
+input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
+input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+label:hover ~ input:checked ~ label /* highlight previous selected stars */ {
+  color: #ffae00;
+}

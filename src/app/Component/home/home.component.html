@@ -1,0 +1,102 @@
+<!--ALERT BAR-->
+<div
+  *ngIf="userLibrary == ''"
+  class="alert alert-warning"
+  class="alert alert-warning alert-dismissible fade show"
+  role="alert"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="currentColor"
+    class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
+    viewBox="0 0 16 16"
+    role="img"
+    aria-label="Warning:"
+  >
+    <path
+      d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+    />
+  </svg>
+  <strong>There are no books in your shelves!</strong> You can add books by
+  navigating to Search in the navigation bar and typing the title of a book.
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+
+<!--HOME USER INFO-->
+
+<div class="container-md mb-5">
+  <div class="container mt-5 text-center">
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container border-container">
+        <h1 class="display-4">{{ message }}</h1>
+        <p class="lead">
+          You have
+          <span *ngIf="userLibrary">{{ userLibrary.length }}</span> books on
+          your shelves
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!--READING-->
+  <div class="container mt-5 text-center">
+    <h2 class="background-container">Currently reading</h2>
+    <div
+      class="d-flex flex-row flex-wrap justify-content-center border-container"
+    >
+      <div *ngFor="let book of userLibrary; i as index">
+        <a [routerLink]="['/book/' + book.bookId]">
+          <img
+            class="m-2 img-fluid thumbnail"
+            *ngIf="book.shelf == 'reading'"
+            src="{{ book.cover }}"
+            alt="book cover"
+        /></a>
+      </div>
+    </div>
+  </div>
+
+  <!--WANT TO READ-->
+
+  <div class="container mt-5 text-center">
+    <h2 class="background-container">Want to read</h2>
+    <div
+      class="d-flex flex-row flex-wrap justify-content-center border-container"
+    >
+      <div *ngFor="let book of userLibrary; i as index">
+        <a [routerLink]="['/book/' + book.bookId]">
+          <img
+            class="m-2 img-fluid thumbnail"
+            *ngIf="book.shelf == 'want to read'"
+            src="{{ book.cover }}"
+            alt="book cover"
+        /></a>
+      </div>
+    </div>
+  </div>
+
+  <!--BOOKS READ-->
+  <div class="container mt-5 text-center">
+    <h2 class="background-container"><a>Books read</a></h2>
+    <div
+      class="d-flex flex-row flex-wrap justify-content-center border-container"
+    >
+      <div *ngFor="let book of userLibrary; i as index">
+        <a [routerLink]="['/book/' + book.bookId]">
+          <img
+            class="m-2 img-fluid thumbnail"
+            *ngIf="book.shelf == 'read'"
+            src="{{ book.cover }}"
+            alt="book cover"
+        /></a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+  <p>TOP 5: {{ top5 }}</p>
+
+  <div class="">
+    <div class="">
+      <h4 class="">Bar Chart</h4>
+      <canvas
+        baseChart
+        [data]="salesData"
+        [type]="'bar'"
+        [options]="chartOptions"
+      >
+      </canvas>
+    </div>
+  </div>
+  <div class="">
+    <div class="">
+      <h4 class="">Pie Chart</h4>
+      <canvas
+        baseChart
+        [data]="salesData"
+        [type]="'pie'"
+        [options]="chartOptions"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>

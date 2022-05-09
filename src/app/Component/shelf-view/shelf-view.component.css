@@ -1,0 +1,30 @@
+.book-card {
+  background: linear-gradient(#20ade540, rgba(0, 0, 0, 0));
+  margin: 1rem auto;
+  padding: 1rem auto;
+  width: 300px;
+  min-height: 200px;
+  height: fit-content;
+  border-radius: 25px;
+}
+.thumbnail {
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+  transition: all 0.2s;
+  /*transform: translate(0, -16px);*/
+  animation: zoomin 0.5s;
+}
+.thumbnail:hover {
+  box-shadow: 0 6px 8px rgb(0 0 0 / 40%);
+  transform: translate(0, -16px) scale(1.1);
+}
+
+.starr::before {
+  display: inline-block;
+  font-size: 1rem;
+  padding: 0.3rem 0.2rem;
+  margin: 0;
+  font-family: FontAwesome;
+  content: "\f005";
+  color: #ffae00;
+}
