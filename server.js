@@ -15,7 +15,7 @@ console.log(__filename);
 console.log(__dirname);
 console.log("////////////////////////");
 const fs = require("fs");
-fs.readdir("./dist/reading-tracker", (err, files) => {
+fs.readdir("./dist/reading-tracker/", (err, files) => {
   files.forEach((file) => {
     console.log(file);
   });
