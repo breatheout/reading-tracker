@@ -14,11 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "readingtrack",
-    "password": "KWxHMzIwYG9OcgiziK7F",
-    "database": "readingtrack",
-    "host": "mysql.readingtracker.co.uk",
-    "port": "3306",
+    "username": "b90ff50953693d",
+    "password": "3f98b453",
+    "database": "heroku_c6599ca5e1238af",
+    "host": "eu-cdbr-west-02.cleardb.net",
     "dialect": "mysql"
   }
 }

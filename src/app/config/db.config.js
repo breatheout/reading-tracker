@@ -15,20 +15,20 @@ const sequelize = new Sequelize("readingtracker", "root", null, {
 
 module.exports = sequelize;*/
 
-/*const Sequelize = require("sequelize");
+const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
-  "heroku_21119f7e1878890",
-  "ba13f3f26f4e8b",
-  "7ee12528",
+  "heroku_c6599ca5e1238af",
+  "b90ff50953693d",
+  "3f98b453",
   {
     host: "eu-cdbr-west-02.cleardb.net",
     dialect: "mysql",
   }
 );
 
-module.exports = sequelize;*/
-
+module.exports = sequelize;
+/*
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
@@ -42,4 +42,4 @@ const sequelize = new Sequelize(
   }
 );
 
-module.exports = sequelize;
+module.exports = sequelize;*/
