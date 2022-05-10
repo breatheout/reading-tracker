@@ -57,7 +57,7 @@ const sequelize = new Sequelize(
   "g0r1jib4iaut30td",
   "xoy9fk9k619cppml",
   {
-    host: "eu-west-1.rds.amazonaws.com",
+    host: "clwxydcjair55xn0.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
     dialect: "mysql",
     port: "3306",
   }
