@@ -16,7 +16,7 @@ const sequelize = new Sequelize("readingtracker", "root", null, {
 
 module.exports = sequelize;*/
 
-const Sequelize = require("sequelize");
+/*const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
   "heroku_21119f7e1878890",
@@ -25,6 +25,21 @@ const sequelize = new Sequelize(
   {
     host: "eu-cdbr-west-02.cleardb.net",
     dialect: "mysql",
+  }
+);
+
+module.exports = sequelize;*/
+
+const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize(
+  "readingtrack",
+  "readingtrack",
+  "KWxHMzIwYG9OcgiziK7F",
+  {
+    host: "mysql.readingtracker.co.uk",
+    dialect: "mysql",
+    port: "3306",
   }
 );
 
