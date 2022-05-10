@@ -394,9 +394,6 @@ function authenticateToken(req, res, next) {
 
 // SERVE STATIC FILES
 app.use(express.static(__dirname + "/dist/reading-tracker"));
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname + "/dist/reading-tracker/index.html"));
-});
 
 // LISTEN
 
