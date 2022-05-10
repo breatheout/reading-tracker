@@ -41,6 +41,8 @@ export class HomeComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.userInfo();
     await this.getLibrary();
+    await this.getTest1();
+    await this.getTest2('test');
   }
   /*
   logout() {
@@ -68,6 +70,24 @@ export class HomeComponent implements OnInit {
       this.userLibrary = res;
     } catch {
       this.router.navigate(['/login']);
+    }
+  }
+
+  async getTest1(): Promise<void> {
+    try {
+      const res = await this.userService.test1();
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async getTest2(str: string): Promise<void> {
+    try {
+      const res = await this.userService.test2(str);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
     }
   }
 }

@@ -104,4 +104,25 @@ export class UserService {
       )
       .toPromise();
   }
+
+  //DELETE BELOW
+
+  test1(): any {
+    return this.http
+      .get(
+        'https://reading-tracker-application.herokuapp.com/api/test',
+        this.authHeader
+      )
+      .toPromise();
+  }
+
+  test2(bookId: string): any {
+    return this.http
+      .post(
+        'https://reading-tracker-application.herokuapp.com/api/testdata' +
+          bookId,
+        this.authHeader
+      )
+      .toPromise();
+  }
 }

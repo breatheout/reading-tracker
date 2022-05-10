@@ -50,9 +50,9 @@ db.sync()
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    /*origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    credentials: true,*/
   })
 );
 
@@ -69,7 +69,7 @@ app.get("/api/test", (request, response) => {
   response.json({ info: "Node.js,Express, and Postgres API" });
 });
 
-app.get("/api/testdata", async (request, response) => {
+app.post("/api/testdata", async (request, response) => {
   const query = await Books.findAll({
     where: {
       username: "admin",
