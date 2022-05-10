@@ -13,6 +13,19 @@ const app = express();
 
 console.log(__filename);
 console.log(__dirname);
+console.log("////////////////////////");
+const fs = require("fs");
+fs.readdir("./dist/reading-tracker", (err, files) => {
+  files.forEach((file) => {
+    console.log(file);
+  });
+});
+console.log("//////////////FIRST SERVER//////////");
+fs.readdir("./dist", (err, files) => {
+  files.forEach((file) => {
+    console.log(file);
+  });
+});
 
 const PORT = process.env.PORT || "8080";
 
@@ -393,7 +406,7 @@ function authenticateToken(req, res, next) {
 }
 
 // SERVE STATIC FILES
-app.use(express.static(__dirname + "/dist/reading-tracker"));
+app.use(express.static("./dist/reading-tracker"));
 
 // LISTEN
 
