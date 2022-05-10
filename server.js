@@ -69,14 +69,14 @@ app.get("/api/test", (request, response) => {
   response.json({ info: "Node.js,Express, and Postgres API" });
 });
 
-app.get("/api/testdata", (request, response) => {
+app.get("/api/testdata", async (request, response) => {
   const query = await Books.findAll({
     where: {
-      username: 'admin',
-    }});
+      username: "admin",
+    },
+  });
   response.json(query);
 });
-
 
 // DOWNLOAD USER DATA AS CSV - JWT - AMENDED - 06-05-2022
 app.get("api/download", authenticateToken, async (req, res) => {
