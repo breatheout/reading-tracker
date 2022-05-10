@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
     this.controller = 'login';
     this.url =
-      'https://reading-tracker-application-be.herokuapp.com/api/' +
+      'https://reading-tracker-application.herokuapp.com/api/' +
       this.controller;
     this.authHeader = {
       headers: new HttpHeaders({

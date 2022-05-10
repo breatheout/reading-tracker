@@ -28,7 +28,7 @@ export class BookService {
   addBook(book: BookPost) {
     return this.http
       .post<BookPost>(
-        'https://reading-tracker-application-be.herokuapp.com/api/book/add',
+        'https://reading-tracker-application.herokuapp.com/api/book/add',
         book,
         this.authHeader
       )
@@ -38,7 +38,7 @@ export class BookService {
   deleteBook(bookId: string) {
     return this.http
       .delete(
-        'https://reading-tracker-application-be.herokuapp.com/api/book/delete',
+        'https://reading-tracker-application.herokuapp.com/api/book/delete',
         {
           body: { bookId: bookId },
           headers: {
