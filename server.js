@@ -56,14 +56,14 @@ app.use(
   })
 );
 
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
-});
+});*/
 
 app.get("/api/test", (request, response) => {
   response.json({ info: "Node.js,Express, and Postgres API" });
@@ -76,6 +76,93 @@ app.get("/api/testdata", async (request, response) => {
     },
   });
   response.json(query);
+});
+
+//REGISTER USER
+app.post("api/register", async (req, res) => {
+  try {
+    console.log("entra en el try");
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const user = {
+      username: req.body.username,
+      email: req.body.email,
+      password: hashedPassword,
+    };
+    if (user.username && user.email && user.password) {
+      console.log("hace la primera query");
+      const query = await Users.findAll({
+        attributes: ["username"],
+        where: {
+          username: user.username,
+        },
+      });
+      if (!query.length) {
+        console.log("query.lenght es false asi que anade el usuario");
+        const newUser = await Users.create({
+          username: user.username,
+          email: user.email,
+          password: user.password,
+        });
+        console.log("newUser auto-generated ID:", newUser.user_id);
+        res.status(201).send({ message: "User created", statusCode: 201 });
+      } else {
+        //db.end();
+        res
+          .status(422)
+          .send({ message: "Username already taken", statusCode: 422 });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//LOGIN AND AUTHENTICATE
+app.post("api/login", async (req, res) => {
+  // Authenticate users starts
+  console.log("empieza la funcion de login");
+  const user = await Users.findAll({
+    where: {
+      username: req.body.username,
+    },
+  });
+  /*.promise()
+    .query(`SELECT * FROM USERS WHERE username='${req.body.username}'`);*/
+  if (user == null) {
+    console.log("dentro del user == null");
+    return res.status(400).send("Cannot find user");
+  }
+  try {
+    console.log("entra en el try");
+    console.log("password is: ", user[0].password);
+    const test = await bcrypt.compare(req.body.password, user[0].password);
+    console.log("el bcrypt compare es", test);
+    if (test) {
+      const username = req.body.username;
+      const userAux = { username: username };
+      console.log(userAux, "antes del access token");
+      const access_token = jwt.sign(userAux, process.env.ACCESS_TOKEN_SECRET);
+      console.log(access_token);
+      const query = await Users.update(
+        { access_token: access_token },
+        {
+          where: {
+            username: req.body.username,
+          },
+        }
+      );
+      /*db.promise().query(
+        `UPDATE USERS SET access_token = '${access_token}' WHERE username='${username}'`
+      );*/
+      res.json({ user_id: username, access_token: access_token });
+      console.log("LOGIN CON EXITO");
+    } else {
+      res.send("Not Allowed");
+    }
+  } catch {
+    res.status(500).send();
+  }
+  // Authenticate users ends
 });
 
 // DOWNLOAD USER DATA AS CSV - JWT - AMENDED - 06-05-2022
@@ -310,93 +397,6 @@ app.post("api/user/library", authenticateToken, async (req, res) => {
     });
   }
   res.json(query);
-});
-
-//REGISTER USER
-app.post("api/register", async (req, res) => {
-  try {
-    console.log("entra en el try");
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = {
-      username: req.body.username,
-      email: req.body.email,
-      password: hashedPassword,
-    };
-    if (user.username && user.email && user.password) {
-      console.log("hace la primera query");
-      const query = await Users.findAll({
-        attributes: ["username"],
-        where: {
-          username: user.username,
-        },
-      });
-      if (!query.length) {
-        console.log("query.lenght es false asi que anade el usuario");
-        const newUser = await Users.create({
-          username: user.username,
-          email: user.email,
-          password: user.password,
-        });
-        console.log("newUser auto-generated ID:", newUser.user_id);
-        res.status(201).send({ message: "User created", statusCode: 201 });
-      } else {
-        //db.end();
-        res
-          .status(422)
-          .send({ message: "Username already taken", statusCode: 422 });
-      }
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-//LOGIN AND AUTHENTICATE
-app.post("api/login", async (req, res) => {
-  // Authenticate users starts
-  console.log("empieza la funcion de login");
-  const user = await Users.findAll({
-    where: {
-      username: req.body.username,
-    },
-  });
-  /*.promise()
-    .query(`SELECT * FROM USERS WHERE username='${req.body.username}'`);*/
-  if (user == null) {
-    console.log("dentro del user == null");
-    return res.status(400).send("Cannot find user");
-  }
-  try {
-    console.log("entra en el try");
-    console.log("password is: ", user[0].password);
-    const test = await bcrypt.compare(req.body.password, user[0].password);
-    console.log("el bcrypt compare es", test);
-    if (test) {
-      const username = req.body.username;
-      const userAux = { username: username };
-      console.log(userAux, "antes del access token");
-      const access_token = jwt.sign(userAux, process.env.ACCESS_TOKEN_SECRET);
-      console.log(access_token);
-      const query = await Users.update(
-        { access_token: access_token },
-        {
-          where: {
-            username: req.body.username,
-          },
-        }
-      );
-      /*db.promise().query(
-        `UPDATE USERS SET access_token = '${access_token}' WHERE username='${username}'`
-      );*/
-      res.json({ user_id: username, access_token: access_token });
-      console.log("LOGIN CON EXITO");
-    } else {
-      res.send("Not Allowed");
-    }
-  } catch {
-    res.status(500).send();
-  }
-  // Authenticate users ends
 });
 
 //MIDDLEWARE TO AUTHENTICATE TOKENS AND ALLOW REQUESTS
