@@ -15,6 +15,8 @@ const sequelize = new Sequelize("readingtracker", "root", null, {
 
 module.exports = sequelize;*/
 
+//CLEAR DB NOT SUPPORTED
+/*
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
@@ -28,7 +30,9 @@ const sequelize = new Sequelize(
 );
 
 module.exports = sequelize;
+*/
 /*
+READING TRACK
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
@@ -43,3 +47,20 @@ const sequelize = new Sequelize(
 );
 
 module.exports = sequelize;*/
+
+//mysql://g0r1jib4iaut30td:xoy9fk9k619cppml@clwxydcjair55xn0.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/bep2lbvw098rd9pn
+
+const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize(
+  "bep2lbvw098rd9pn",
+  "g0r1jib4iaut30td",
+  "xoy9fk9k619cppml",
+  {
+    host: "eu-west-1.rds.amazonaws.com",
+    dialect: "mysql",
+    port: "3306",
+  }
+);
+
+module.exports = sequelize;
