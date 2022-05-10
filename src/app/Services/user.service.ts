@@ -76,8 +76,7 @@ export class UserService {
   getUserInfo() {
     return this.http
       .get<any>(
-        this.url +
-          'https://reading-tracker-application.herokuapp.com/api/user/info',
+        'https://reading-tracker-application.herokuapp.com/api/user/info',
         this.authHeader
       )
       .toPromise();
