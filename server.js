@@ -1,6 +1,6 @@
 // type npm run devStart to keep the server running
 
-require("dotenv").config();
+//require("dotenv").config(); 10/05/2022 19:37 commented out
 
 const express = require("express");
 const path = require("path");
@@ -406,7 +406,10 @@ function authenticateToken(req, res, next) {
 }
 
 // SERVE STATIC FILES
-app.use(express.static("./dist/reading-tracker"));
+app.use(express.static(__dirname + "/dist/reading-tracker"));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname + "/dist/reading-tracker/index.html"));
+});
 
 // LISTEN
 
