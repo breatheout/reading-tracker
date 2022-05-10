@@ -5,9 +5,8 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const app = express();
-//app.use(express.static("/dist/reading-tracker"));
 
-//app.use(express.static("./dist/reading-tracker"));
+//app.use(express.static("/dist/reading-tracker"));
 /*app.get("/*", function (req, res) {
   res.sendFile(path.join("./dist/reading-tracker/index.html"));
 });*/
@@ -16,9 +15,6 @@ console.log(__filename);
 console.log(__dirname);
 
 const PORT = process.env.PORT || "8080";
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
 
 const db = require("./config/db.config"); // tu variable db se llama sequelize en el tutorial  https://www.youtube.com/watch?v=ExTZYpyAn6s
 const jwt = require("jsonwebtoken");
@@ -395,3 +391,15 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+
+// SERVE STATIC FILES
+app.use(express.static(__dirname + "/dist/reading-tracker"));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname + "/dist/reading-tracker/index.html"));
+});
+
+// LISTEN
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
