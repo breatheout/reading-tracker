@@ -38,9 +38,8 @@ db.sync()
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://reading-tracker-application.herokuapp.com/",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    //credentials: true,
   })
 );
 
@@ -53,47 +52,8 @@ app.use(
   next();
 });*/
 
-app.get("/api/test", (request, response) => {
-  response.json({ info: "Node.js,Express, and Postgres API" });
-});
-
-app.post("/api/testdata", authenticateToken, async (req, res) => {
-  console.log(req.body);
-  const query = await Books.findAll({
-    where: {
-      username: "admin",
-    },
-  });
-  const newUser = await Users.create({
-    username: req.body.username,
-    email: req.body.mail,
-    password: req.body.pass,
-  });
-  const newUser2 = await Users.create({
-    username: "test",
-    email: "test",
-    password: "test",
-  });
-  res.json(query);
-});
-
-app.put("/api/create/:username/:mail/:pass", async (req, res) => {
-  try {
-    const newUser = await Users.create({
-      username: req.params.username,
-      email: req.params.mail,
-      password: req.params.pass,
-    });
-    console.log("newUser auto-generated ID:", newUser.user_id);
-    res.status(201).send({ message: "User created", statusCode: 201 });
-  } catch (err) {
-    console.log("ERROR::::::::::");
-    console.log(err);
-  }
-});
-
 //REGISTER USER
-app.post("/api/register", async (req, res) => {
+app.post("api/register", async (req, res) => {
   try {
     console.log("entra en el try");
     const hashedPassword = await bcrypt.hash(req.body.password, 10);

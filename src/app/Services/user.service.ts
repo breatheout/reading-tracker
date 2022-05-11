@@ -30,9 +30,7 @@ export class UserService {
     };
     this.authHeader = {
       headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjUxOTE0MDM2fQ.ZexoJf912Fl_Gwz156S5AAjDy6cvNzKMy_Hrh9kceo4',
+        Authorization: 'Bearer ' + this.localStorageService.get('access_token'),
       }),
     };
   }
@@ -101,29 +99,6 @@ export class UserService {
       .get(
         'https://reading-tracker-application.herokuapp.com/api/user/book/' +
           bookId,
-        this.authHeader
-      )
-      .toPromise();
-  }
-
-  //DELETE BELOW
-
-  test1(): any {
-    return this.http
-      .get(
-        'https://reading-tracker-application.herokuapp.com/api/test',
-        this.authHeader
-      )
-      .toPromise();
-  }
-
-  test2(bookId: string): any {
-    var aux = bookId;
-    const posttt = { username: 'abc', mail: 'abc', pass: 'abc' };
-    return this.http
-      .post(
-        'https://reading-tracker-application.herokuapp.com/api/testdata',
-        posttt,
         this.authHeader
       )
       .toPromise();

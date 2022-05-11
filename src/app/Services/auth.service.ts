@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Auth } from '../Models/auth.model';
+import { LocalStorageService } from './local-storage.service';
 
 interface AuthToken {
   user_id: string;
@@ -15,16 +16,17 @@ export class AuthService {
   private controller: string;
   private authHeader: object;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService
+  ) {
     this.controller = 'login';
     this.url =
       'https://reading-tracker-application.herokuapp.com/api/' +
       this.controller;
     this.authHeader = {
       headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjUxOTE0MDM2fQ.ZexoJf912Fl_Gwz156S5AAjDy6cvNzKMy_Hrh9kceo4',
+        Authorization: 'Bearer ' + this.localStorageService.get('access_token'),
       }),
     };
   }

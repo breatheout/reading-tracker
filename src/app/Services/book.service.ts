@@ -19,7 +19,6 @@ export class BookService {
     this.url = 'http://localhost:3000/' + this.controller;
     this.authHeader = {
       headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
         Authorization: 'Bearer ' + this.localStorageService.get('access_token'),
       }),
     };
