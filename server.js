@@ -6,18 +6,13 @@ const express = require("express");
 const path = require("path");
 const app = express();
 
-//app.use(express.static("/dist/reading-tracker"));
-/*app.get("/*", function (req, res) {
-  res.sendFile(path.join("./dist/reading-tracker/index.html"));
-});*/
-
 console.log(__filename);
 console.log(__dirname);
 console.log("////////////////////////");
 
 const PORT = process.env.PORT || "8080";
 
-const db = require("./config/db.config"); // tu variable db se llama sequelize en el tutorial  https://www.youtube.com/watch?v=ExTZYpyAn6s
+const db = require("./config/db.config");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
@@ -25,15 +20,7 @@ const Users = require("./sequelize-models/Users");
 const Books = require("./sequelize-models/Books");
 const CsvParser = require("json2csv").Parser;
 
-/* */
-
-db.sync()
-  .then((result) => {
-    console.log("//////////////FIRST SERVER//////////");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+db.sync();
 
 app.use(express.json());
 app.use(
@@ -43,17 +30,8 @@ app.use(
   })
 );
 
-/*app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});*/
-
 //REGISTER USER
-app.post("api/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   try {
     console.log("entra en el try");
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -398,7 +376,6 @@ app.get("/*", function (req, res) {
 });
 
 // LISTEN
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
