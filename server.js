@@ -14,18 +14,6 @@ const app = express();
 console.log(__filename);
 console.log(__dirname);
 console.log("////////////////////////");
-const fs = require("fs");
-fs.readdir("./dist/reading-tracker/", (err, files) => {
-  files.forEach((file) => {
-    console.log(file);
-  });
-});
-console.log("//////////////FIRST SERVER//////////");
-fs.readdir("./dist", (err, files) => {
-  files.forEach((file) => {
-    console.log(file);
-  });
-});
 
 const PORT = process.env.PORT || "8080";
 
@@ -50,9 +38,9 @@ db.sync()
 app.use(express.json());
 app.use(
   cors({
-    /*origin: "*",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,*/
+    //credentials: true,
   })
 );
 
@@ -69,7 +57,7 @@ app.get("/api/test", (request, response) => {
   response.json({ info: "Node.js,Express, and Postgres API" });
 });
 
-app.post("/api/testdata", async (request, response) => {
+app.post("/api/testdata", cors(), async (request, response) => {
   const query = await Books.findAll({
     where: {
       username: "admin",
