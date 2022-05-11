@@ -78,6 +78,21 @@ app.post("/api/testdata", async (request, response) => {
   response.json(query);
 });
 
+app.put("/api/create/:username/:mail/:pass", async (req, res) => {
+  try {
+    const newUser = await Users.create({
+      username: req.params.username,
+      email: req.params.mail,
+      password: req.params.pass,
+    });
+    console.log("newUser auto-generated ID:", newUser.user_id);
+    res.status(201).send({ message: "User created", statusCode: 201 });
+  } catch (err) {
+    console.log("ERROR::::::::::");
+    console.log(err);
+  }
+});
+
 //REGISTER USER
 app.post("api/register", async (req, res) => {
   try {
