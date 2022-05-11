@@ -119,9 +119,8 @@ export class UserService {
   test2(bookId: string): any {
     return this.http
       .post(
-        'https://reading-tracker-application.herokuapp.com/api/testdata' +
-          bookId,
-        this.authHeader
+        'https://reading-tracker-application.herokuapp.com/api/testdata',
+        bookId
       )
       .toPromise();
   }
