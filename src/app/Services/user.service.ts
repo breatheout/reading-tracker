@@ -117,10 +117,12 @@ export class UserService {
   }
 
   test2(bookId: string): any {
+    var aux = bookId;
+    const posttt = { username: 'abc', mail: 'abc', pass: 'abc' };
     return this.http
       .post(
         'https://reading-tracker-application.herokuapp.com/api/testdata',
-        bookId
+        posttt
       )
       .toPromise();
   }

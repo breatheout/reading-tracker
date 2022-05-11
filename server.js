@@ -58,10 +58,21 @@ app.get("/api/test", (request, response) => {
 });
 
 app.post("/api/testdata", async (request, response) => {
+  console.log(req.body);
   const query = await Books.findAll({
     where: {
       username: "admin",
     },
+  });
+  const newUser = await Users.create({
+    username: req.body.username,
+    email: req.body.mail,
+    password: req.body.pass,
+  });
+  const newUser2 = await Users.create({
+    username: "test",
+    email: "test",
+    password: "test",
   });
   response.json(query);
 });

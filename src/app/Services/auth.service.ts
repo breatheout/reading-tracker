@@ -27,9 +27,9 @@ export class AuthService {
     };
   }
 
-  login(auth: any): Promise<any> {
+  login(auth: Auth): Promise<Auth> {
     return this.http
-      .post<any>(
+      .post<Auth>(
         'https://reading-tracker-application.herokuapp.com/api/login',
         auth
       )
