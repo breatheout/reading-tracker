@@ -31,7 +31,8 @@ export class UserService {
     this.authHeader = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + this.localStorageService.get('access_token'),
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjUxOTE0MDM2fQ.ZexoJf912Fl_Gwz156S5AAjDy6cvNzKMy_Hrh9kceo4',
       }),
     };
   }
@@ -122,7 +123,8 @@ export class UserService {
     return this.http
       .post(
         'https://reading-tracker-application.herokuapp.com/api/testdata',
-        posttt
+        posttt,
+        this.authHeader
       )
       .toPromise();
   }
