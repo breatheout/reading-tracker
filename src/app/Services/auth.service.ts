@@ -27,9 +27,12 @@ export class AuthService {
     };
   }
 
-  login(auth: Auth): Promise<AuthToken> {
+  login(auth: any): Promise<any> {
     return this.http
-      .post<AuthToken>(this.url, auth, this.authHeader)
+      .post<any>(
+        'https://reading-tracker-application.herokuapp.com/api/login',
+        auth
+      )
       .toPromise();
   }
 }
