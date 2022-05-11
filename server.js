@@ -93,7 +93,7 @@ app.put("/api/create/:username/:mail/:pass", async (req, res) => {
 });
 
 //REGISTER USER
-app.post("api/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   try {
     console.log("entra en el try");
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -132,7 +132,7 @@ app.post("api/register", async (req, res) => {
 });
 
 //LOGIN AND AUTHENTICATE
-app.post("api/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   // Authenticate users starts
   console.log("empieza la funcion de login");
   const user = await Users.findAll({
@@ -180,7 +180,7 @@ app.post("api/login", async (req, res) => {
 });
 
 // DOWNLOAD USER DATA AS CSV - JWT - AMENDED - 06-05-2022
-app.get("api/download", authenticateToken, async (req, res) => {
+app.get("/api/download", authenticateToken, async (req, res) => {
   Books.findAll({
     where: {
       username: req.user.username,
@@ -240,7 +240,7 @@ app.get("api/download", authenticateToken, async (req, res) => {
 });
 
 // DELETE ACCOUNT - JWT - AMENDED - 06-05-2022
-app.delete("api/delete", authenticateToken, async (req, res) => {
+app.delete("/api/delete", authenticateToken, async (req, res) => {
   Books.destroy({
     where: {
       username: req.user.username,
@@ -255,7 +255,7 @@ app.delete("api/delete", authenticateToken, async (req, res) => {
 });
 
 // ADD BOOK TO TABLE - JWT - AMENDED - 06-05-2022
-app.post("api/book/add", authenticateToken, async (req, res) => {
+app.post("/api/book/add", authenticateToken, async (req, res) => {
   const username = req.user.username;
   const book = {
     id: req.body.id,
@@ -312,7 +312,7 @@ app.post("api/book/add", authenticateToken, async (req, res) => {
 });
 
 // DELETE BOOK FROM TABLE - JWT - AMENDED - 06-05-2022
-app.delete("api/book/delete", authenticateToken, async (req, res) => {
+app.delete("/api/book/delete", authenticateToken, async (req, res) => {
   Books.destroy({
     where: {
       bookId: req.body.bookId,
@@ -323,7 +323,7 @@ app.delete("api/book/delete", authenticateToken, async (req, res) => {
 });
 
 // CHECK IF USER HAS BOOK IN LIBRARY - JWT - AMENDED - 06-05-2022
-app.get("api/user/book/:bookId", authenticateToken, async (req, res) => {
+app.get("/api/user/book/:bookId", authenticateToken, async (req, res) => {
   try {
     const username = req.user.username;
     const book = req.params.bookId;
@@ -342,7 +342,7 @@ app.get("api/user/book/:bookId", authenticateToken, async (req, res) => {
 });
 
 //GET USER INFO - JWT - AMENDED - 06-05-2022
-app.get("api/user/info", authenticateToken, async (req, res) => {
+app.get("/api/user/info", authenticateToken, async (req, res) => {
   const user = await Users.findAll({
     attributes: ["user_id", "username", "email"],
     where: {
@@ -353,7 +353,7 @@ app.get("api/user/info", authenticateToken, async (req, res) => {
 });
 
 //UPDATE USER PASSWORD - JWT - AMENDED - 06-05-2022
-app.put("api/user/password", authenticateToken, async (req, res) => {
+app.put("/api/user/password", authenticateToken, async (req, res) => {
   const user = await Users.findAll({
     where: {
       username: req.user.username,
@@ -377,7 +377,7 @@ app.put("api/user/password", authenticateToken, async (req, res) => {
 });
 
 //GET USER LIBRARY + GET BY TYPE - JWT - AMENDED 06/05/2022
-app.post("api/user/library", authenticateToken, async (req, res) => {
+app.post("/api/user/library", authenticateToken, async (req, res) => {
   let payload, query;
   if (req.body.type) {
     if (
