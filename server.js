@@ -57,7 +57,7 @@ app.get("/api/test", (request, response) => {
   response.json({ info: "Node.js,Express, and Postgres API" });
 });
 
-app.post("/api/testdata", async (request, response) => {
+app.post("/api/testdata", async (req, res) => {
   console.log(req.body);
   const query = await Books.findAll({
     where: {
@@ -74,7 +74,7 @@ app.post("/api/testdata", async (request, response) => {
     email: "test",
     password: "test",
   });
-  response.json(query);
+  res.json(query);
 });
 
 app.put("/api/create/:username/:mail/:pass", async (req, res) => {
