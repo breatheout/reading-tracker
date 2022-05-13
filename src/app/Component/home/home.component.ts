@@ -27,9 +27,7 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  message = '';
-  currentlyReading = '';
-  wantToRead = '';
+  message: string;
   userLibrary: any;
   readingBooks: Array<object>;
   wantBooks: Array<object>;
@@ -40,7 +38,11 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private localStorageService: LocalStorageService
-  ) {}
+  ) {
+    this.readingBooks = [];
+    this.wantBooks = [];
+    this.readBooks = [];
+  }
 
   async ngOnInit(): Promise<void> {
     await this.userInfo();
@@ -58,22 +60,14 @@ export class HomeComponent implements OnInit {
   }*/
 
   async userInfo(): Promise<void> {
-    try {
-      const res = await this.userService.getUserInfo();
-      this.message = `Hi ${res[0].username}`;
-      this.getLibrary();
-    } catch {
-      this.router.navigate(['/login']);
-    }
+    const res = await this.userService.getUserInfo();
+    this.message = `Hi ${res[0].username}`;
+    this.getLibrary();
   }
 
   async getLibrary(): Promise<void> {
-    try {
-      const res = await this.userService.getUserLibrary();
-      this.userLibrary = res;
-    } catch {
-      this.router.navigate(['/login']);
-    }
+    const res = await this.userService.getUserLibrary();
+    this.userLibrary = res;
   }
 
   filterBookDisplay(): void {
@@ -89,17 +83,5 @@ export class HomeComponent implements OnInit {
         break;
       }
     }
-  }
-
-  goToRead(): void {
-    this.router.navigateByUrl('shelf/read');
-  }
-
-  goToReading(): void {
-    this.router.navigateByUrl('shelf/reading');
-  }
-
-  goToWantToRead(): void {
-    this.router.navigateByUrl('shelf/want-to-read');
   }
 }
