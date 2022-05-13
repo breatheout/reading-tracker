@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { AuthInterceptor } from 'src/app/Interceptors/auth.interceptor';
 import { UserService } from 'src/app/Services/user.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +37,13 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private localStorageService: LocalStorageService
-  ) {}
+  ) {
+    var myCarousel = document.querySelector('#carouselExampleControls');
+    var carousel = new bootstrap.Carousel(myCarousel, {
+      interval: 2000,
+      wrap: false,
+    });
+  }
 
   async ngOnInit(): Promise<void> {
     await this.userInfo();
