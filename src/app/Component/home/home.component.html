@@ -47,7 +47,12 @@
 
   <!--READING-->
   <div class="container mt-5 text-center">
-    <h2 class="background-container">Currently reading</h2>
+    <h2 class="background-container">
+      Currently reading
+      <button type="button" class="btn btn-dark btn-sm" (click)="goToReading()">
+        &#10157;
+      </button>
+    </h2>
     <div
       class="d-flex flex-row flex-wrap justify-content-center border-container"
     >
@@ -61,12 +66,32 @@
         /></a>
       </div>
     </div>
+    <div
+      id="carouselExampleSlidesOnly"
+      class="carousel slide"
+      data-ride="carousel"
+    >
+      <div class="carousel-inner">
+        <div class="carousel-item" *ngFor="let book of userLibrary; i as index">
+          <img class="d-block w-100" src="{{ book.cover }}" alt="book cover" />
+        </div>
+      </div>
+    </div>
   </div>
 
   <!--WANT TO READ-->
 
   <div class="container mt-5 text-center">
-    <h2 class="background-container">Want to read</h2>
+    <h2 class="background-container">
+      Want to read
+      <button
+        type="button"
+        class="btn btn-dark btn-sm"
+        (click)="goToWantToRead()"
+      >
+        &#10157;
+      </button>
+    </h2>
     <div
       class="d-flex flex-row flex-wrap justify-content-center border-container"
     >
@@ -84,7 +109,12 @@
 
   <!--BOOKS READ-->
   <div class="container mt-5 text-center">
-    <h2 class="background-container"><a>Books read</a></h2>
+    <h2 class="background-container">
+      Books read
+      <button type="button" class="btn btn-dark btn-sm" (click)="goToRead()">
+        &#10157;
+      </button>
+    </h2>
     <div
       class="d-flex flex-row flex-wrap justify-content-center border-container"
     >

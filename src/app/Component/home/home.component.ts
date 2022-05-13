@@ -70,4 +70,16 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
+
+  goToRead(): void {
+    this.router.navigateByUrl('shelf/read');
+  }
+
+  goToReading(): void {
+    this.router.navigateByUrl('shelf/reading');
+  }
+
+  goToWantToRead(): void {
+    this.router.navigateByUrl('shelf/want-to-read');
+  }
 }
