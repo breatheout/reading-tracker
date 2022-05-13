@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.userInfo();
     await this.getLibrary();
-    this.filterBookDisplay();
   }
   /*
   logout() {
@@ -68,9 +67,12 @@ export class HomeComponent implements OnInit {
   async getLibrary(): Promise<void> {
     const res = await this.userService.getUserLibrary();
     this.userLibrary = res;
+    this.filterBookDisplay();
   }
 
   filterBookDisplay(): void {
+    console.log(this.readingBooks.length);
+    console.log(this.readBooks.length);
     for (let book of this.userLibrary) {
       if (book.shelf == 'reading' && this.readingBooks.length < 8) {
         this.readingBooks.push(book);
@@ -82,6 +84,8 @@ export class HomeComponent implements OnInit {
         this.readBooks.push(book);
         break;
       }
+      console.log(this.readingBooks);
+      console.log(this.readBooks);
     }
   }
 }
