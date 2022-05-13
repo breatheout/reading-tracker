@@ -49,7 +49,7 @@
     <div class="carousel-inner">
       <div
         *ngFor="let book of userLibrary; i as index"
-        [ngClass]="{ 'carousel-item ': true, active: i == 0 }"
+        [ngClass]="i == 0 ? 'carousel-item active' : 'carousel-item'"
       >
         <img class="d-block w-100" src="{{ book.cover }}" alt="First slide" />
       </div>
