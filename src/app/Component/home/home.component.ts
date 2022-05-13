@@ -77,11 +77,11 @@ export class HomeComponent implements OnInit {
 
   filterBookDisplay(): void {
     for (let book of this.userLibrary) {
-      if (book.shelf == 'reading') {
+      if (book.shelf == 'reading' && this.readingBooks.length <= 7) {
         this.readingBooks.push(book);
-      } else if (book.shelf == 'want to read') {
+      } else if (book.shelf == 'want to read' && this.wantBooks.length <= 7) {
         this.wantBooks.push(book);
-      } else if (book.shelf == 'read') {
+      } else if (book.shelf == 'read' && this.readBooks.length <= 7) {
         this.readBooks.push(book);
       }
     }
