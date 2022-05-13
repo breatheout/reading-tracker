@@ -29,12 +29,9 @@
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/styles.css"
             ],
-            "allowedCommonJsDependencies": [
-              "chart.js"
-            ],
+            "allowedCommonJsDependencies": ["chart.js"],
             "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
@@ -100,12 +97,8 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js"
-            ]
+            "styles": ["src/styles.css"],
+            "scripts": ["node_modules/jquery/dist/jquery.min.js"]
           }
         }
       }
