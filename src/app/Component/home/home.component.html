@@ -47,8 +47,8 @@
 
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-      <div *ngFor="let book of userLibrary; i as index">
-        <div [ngClass]="i == 1 ? 'carousel-item active' : 'carousel-item'">
+      <div *ngFor="let book of userLibrary; index as i; first as isFirst">
+        <div [ngClass]="isFirst ? 'carousel-item active' : 'carousel-item'">
           <img class="d-block w-100" src="{{ book.cover }}" alt="First slide" />
         </div>
       </div>
