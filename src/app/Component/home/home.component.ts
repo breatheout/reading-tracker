@@ -31,19 +31,16 @@ export class HomeComponent implements OnInit {
   currentlyReading = '';
   wantToRead = '';
   userLibrary: any;
+  readingBooks: Array<object>;
+  wantBooks: Array<object>;
+  readBooks: Array<object>;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private userService: UserService,
     private localStorageService: LocalStorageService
-  ) {
-    var myCarousel = document.querySelector('#carouselExampleControls');
-    var carousel = new bootstrap.Carousel(myCarousel, {
-      interval: 2000,
-      wrap: false,
-    });
-  }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     await this.userInfo();
@@ -75,6 +72,18 @@ export class HomeComponent implements OnInit {
       this.userLibrary = res;
     } catch {
       this.router.navigate(['/login']);
+    }
+  }
+
+  filterBookDisplay(): void {
+    for (let book of this.userLibrary) {
+      if (book.shelf == 'reading') {
+        this.readingBooks.push(book);
+      } else if (book.shelf == 'want to read') {
+        this.wantBooks.push(book);
+      } else if (book.shelf == 'read') {
+        this.readBooks.push(book);
+      }
     }
   }
 
