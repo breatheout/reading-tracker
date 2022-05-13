@@ -77,10 +77,12 @@ export class HomeComponent implements OnInit {
       if (book.shelf == 'reading' && this.readingBooks.length < 8) {
         this.readingBooks.push(book);
         break;
-      } else if (book.shelf == 'want to read' && this.wantBooks.length < 8) {
+      }
+      if (book.shelf == 'want to read' && this.wantBooks.length < 8) {
         this.wantBooks.push(book);
         break;
-      } else if (book.shelf == 'read' && this.readBooks.length < 8) {
+      }
+      if (book.shelf == 'read' && this.readBooks.length < 8) {
         this.readBooks.push(book);
         break;
       }
