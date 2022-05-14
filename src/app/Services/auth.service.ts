@@ -42,6 +42,7 @@ export class AuthService {
   }
 
   logout(): Promise<void> {
+    console.log(this.authHeader);
     return this.http
       .put<void>(
         'https://reading-tracker-application.herokuapp.com/api/logout',
