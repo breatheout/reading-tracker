@@ -12,7 +12,7 @@
   <!--CARD-->
   <div class="my-5 mx-auto" style="max-width: 600px">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-md-4 responsive-img">
         <img
           src="{{ book.volumeInfo.imageLinks.thumbnail }}"
           class="img-fluid rounded-start"
@@ -48,7 +48,8 @@
     <!--DROPDOWN SELECT-->
     <form>
       <select
-        class="form-select w-25"
+        class="form-select"
+        style="width: 150px"
         [(ngModel)]="ngDropdown"
         name="shelf status"
         id="shelfStatus"
@@ -64,7 +65,7 @@
     </form>
   </div>
 
-  <div class="mx-auto my-5">
+  <!--<div class="mx-5 my-auto">
     <button class="">
       <svg
         class="fill-current w-4 h-4 mr-2"
@@ -73,14 +74,14 @@
       >
         <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
       </svg>
-      <a href="{{ book.selfLink }}" target="_blank">JSON Data</a>
+      <a href="{{ book.selfLink }}" target="_blank">JSON</a>
     </button>
-  </div>
+  </div>-->
 
   <!--DATE SELECTOR-->
-  <p class="text-center" *ngIf="ngDropdown != 'want to read'">
+  <div class="text-center mb-5" *ngIf="ngDropdown != 'want to read'">
     <a
-      class="btn btn-primary"
+      class="btn btn-dark"
       data-bs-toggle="collapse"
       href="#collapseExample"
       role="button"
@@ -89,7 +90,7 @@
     >
       Dates / Rating / Notes
     </a>
-  </p>
+  </div>
   <div class="collapse" id="collapseExample">
     <div class="card color-block">
       <form
@@ -238,7 +239,7 @@
         </div>
 
         <div class="text-center">
-          <button class="btn btn-primary" type="submit">Save</button>
+          <button class="btn btn-dark" type="submit">Save</button>
         </div>
       </form>
     </div>
@@ -249,17 +250,21 @@
     <h1 class="header-title">Genres</h1>
 
     <div class="mx-auto my-5 px-6 pt-4 pb-2">
-      <span *ngFor="let genre of genres" class="badge rounded-pill bg-info">{{
-        genre
-      }}</span>
-      <p
-        *ngIf="
-          book.volumeInfo.categories === null ||
-          book.volumeInfo.categories === undefined
-        "
-      >
-        No information available at this time
-      </p>
+      <div class="flex flex-wrap new-class-parent">
+        <span
+          *ngFor="let genre of genres"
+          class="badge rounded-pill bg-info new-class"
+          >{{ genre }}</span
+        >
+        <p
+          *ngIf="
+            book.volumeInfo.categories === null ||
+            book.volumeInfo.categories === undefined
+          "
+        >
+          No information available at this time
+        </p>
+      </div>
     </div>
 
     <h1 class="header-title">Sinopsis</h1>

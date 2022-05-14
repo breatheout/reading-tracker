@@ -92,21 +92,21 @@ app.post("/api/login", async (req, res) => {
     if (test) {
       const username = req.body.username;
       const userAux = { username: username };
-      const access_token = generateAccessToken(userAux);
-      const refresh_token = jwt.sign(userAux, process.env.REFRESH_TOKEN_SECRET);
-      await Users.update(
-        { access_token: refresh_token },
+      console.log(userAux, "antes del access token");
+      const access_token = jwt.sign(userAux, process.env.ACCESS_TOKEN_SECRET);
+      console.log(access_token);
+      const query = await Users.update(
+        { access_token: access_token },
         {
           where: {
             username: req.body.username,
           },
         }
       );
-      res.json({
-        user_id: username,
-        access_token: access_token,
-        refresh_token: refresh_token,
-      });
+      /*db.promise().query(
+        `UPDATE USERS SET access_token = '${access_token}' WHERE username='${username}'`
+      );*/
+      res.json({ user_id: username, access_token: access_token });
       console.log("LOGIN CON EXITO");
     } else {
       res.send("Not Allowed");
@@ -369,11 +369,11 @@ function authenticateToken(req, res, next) {
   });
 }
 
-//LOGOUT WITH JWT
+//LOGOUT WITH JWT NEEDS TO BE IMPLEMENTED
 app.delete("/api/logout", async (req, res) => {
   await Users.destroy({
     where: {
-      access_token: req.body.refresh_token,
+      refresh_token: req.body.refresh_token,
     },
   });
   res.sendStatus(204);
