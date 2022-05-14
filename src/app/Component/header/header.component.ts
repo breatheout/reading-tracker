@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit {
   }*/
 
   async logout(): Promise<void> {
-    await this.authService.logout('string');
+    await this.authService.logout();
     this.localStorageService.remove('user_id');
     this.localStorageService.remove('access_token');
 
