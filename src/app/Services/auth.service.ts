@@ -40,4 +40,13 @@ export class AuthService {
       )
       .toPromise();
   }
+
+  logout(): Promise<void> {
+    return this.http
+      .put<void>(
+        'https://reading-tracker-application.herokuapp.com/api/logout',
+        this.authHeader
+      )
+      .toPromise();
+  }
 }

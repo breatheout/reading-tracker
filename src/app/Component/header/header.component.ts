@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderMenus } from 'src/app/Models/header-menus.model';
+import { AuthService } from 'src/app/Services/auth.service';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private headerMenusService: HeaderMenusService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private authService: AuthService
   ) {
     this.showAuthSection = false;
     this.showNoAuthSection = true;
@@ -64,8 +66,25 @@ export class HeaderComponent implements OnInit {
   shelf(): void {
     this.router.navigateByUrl('shelf');
   }
-
+  /*
   logout(): void {
+    this.localStorageService.remove('user_id');
+    this.localStorageService.remove('access_token');
+
+    const headerInfo: HeaderMenus = {
+      showAuthSection: false,
+      showNoAuthSection: true,
+    };
+
+    this.headerMenusService.headerManagement.next(headerInfo);
+
+    this.router.navigateByUrl('home').then(() => {
+      window.location.reload();
+    });
+  }*/
+
+  async logout(): Promise<void> {
+    await this.authService.logout();
     this.localStorageService.remove('user_id');
     this.localStorageService.remove('access_token');
 

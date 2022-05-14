@@ -370,12 +370,15 @@ function authenticateToken(req, res, next) {
 }
 
 //LOGOUT WITH JWT
-app.delete("/api/logout", async (req, res) => {
-  await Users.destroy({
-    where: {
-      access_token: req.body.refresh_token,
-    },
-  });
+app.put("/api/logout", authenticateToken, async (req, res) => {
+  await Users.update(
+    { access_token: "" },
+    {
+      where: {
+        username: req.user.username,
+      },
+    }
+  );
   res.sendStatus(204);
 });
 
