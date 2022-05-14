@@ -71,23 +71,16 @@ export class HomeComponent implements OnInit {
   }
 
   filterBookDisplay(): void {
-    console.log(this.readingBooks.length);
-    console.log(this.readBooks.length);
     for (let book of this.userLibrary) {
       if (book.shelf == 'reading' && this.readingBooks.length < 8) {
         this.readingBooks.push(book);
-        break;
       }
       if (book.shelf == 'want to read' && this.wantBooks.length < 8) {
         this.wantBooks.push(book);
-        break;
       }
       if (book.shelf == 'read' && this.readBooks.length < 8) {
         this.readBooks.push(book);
-        break;
       }
-      console.log(this.readingBooks);
-      console.log(this.readBooks);
     }
   }
 }
