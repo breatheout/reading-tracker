@@ -354,9 +354,9 @@ app.post("/api/user/library", authenticateToken, async (req, res) => {
 //MIDDLEWARE TO AUTHENTICATE TOKENS AND ALLOW REQUESTS
 function authenticateToken(req, res, next) {
   console.log("ha entrado en la verificacion");
-  console.log(req);
+  console.log(req.headers["authorization"]);
   const authHeader = req.headers["authorization"];
-  console.log(authHeader);
+  console.log(req.headers);
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) {
     console.log("ha entrado en token null");
