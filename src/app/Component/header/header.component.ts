@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private authService: AuthService
   ) {
-    this.showAuthSection = false;
-    this.showNoAuthSection = true;
+    this.showAuthSection = true;
+    this.showNoAuthSection = false;
   }
 
   ngOnInit(): void {
