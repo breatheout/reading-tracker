@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private authService: AuthService
   ) {
-    this.showAuthSection = true;
-    this.showNoAuthSection = false;
+    this.showAuthSection = false;
+    this.showNoAuthSection = true;
   }
 
   ngOnInit(): void {
@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit {
 
     this.headerMenusService.headerManagement.next(headerInfo);
 
-    this.router.navigateByUrl('home').then(() => {
+    this.router.navigateByUrl('login').then(() => {
       window.location.reload();
     });
   }
