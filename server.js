@@ -372,7 +372,7 @@ function authenticateToken(req, res, next) {
 }
 
 //LOGOUT WITH JWT
-app.post("/api/logout", authenticateToken, async (req, res) => {
+app.delete("/api/logout", authenticateToken, async (req, res) => {
   await Users.update(
     { access_token: "" },
     {
