@@ -89,4 +89,8 @@ export class RegisterComponent implements OnInit {
       error.error
     );
   }
+
+  goToLogIn(): void {
+    this.router.navigateByUrl('login');
+  }
 }
