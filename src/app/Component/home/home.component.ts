@@ -47,6 +47,9 @@ export class HomeComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.userInfo();
     await this.getLibrary();
+    console.log(this.readingBooks);
+    console.log(this.wantBooks);
+    console.log(this.readBooks);
   }
   /*
   logout() {
@@ -61,7 +64,6 @@ export class HomeComponent implements OnInit {
   async userInfo(): Promise<void> {
     const res = await this.userService.getUserInfo();
     this.message = `Hi ${res[0].username}`;
-    this.getLibrary();
   }
 
   async getLibrary(): Promise<void> {
@@ -72,14 +74,18 @@ export class HomeComponent implements OnInit {
 
   filterBookDisplay(): void {
     for (let book of this.userLibrary) {
+      console.log(book);
       if (book.shelf == 'reading' && this.readingBooks.length < 8) {
         this.readingBooks.push(book);
+        console.log('first if');
       }
       if (book.shelf == 'want to read' && this.wantBooks.length < 8) {
         this.wantBooks.push(book);
+        console.log('second if');
       }
       if (book.shelf == 'read' && this.readBooks.length < 8) {
         this.readBooks.push(book);
+        console.log('third if');
       }
     }
   }
