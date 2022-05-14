@@ -42,9 +42,9 @@ export class AuthService {
   }
 
   logout(): Promise<void> {
-    console.log(this.authHeader);
+    console.log(this.localStorageService.get('access_token'));
     return this.http
-      .put<void>(
+      .post<void>(
         'https://reading-tracker-application.herokuapp.com/api/logout',
         this.authHeader
       )

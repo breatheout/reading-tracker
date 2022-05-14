@@ -354,7 +354,9 @@ app.post("/api/user/library", authenticateToken, async (req, res) => {
 //MIDDLEWARE TO AUTHENTICATE TOKENS AND ALLOW REQUESTS
 function authenticateToken(req, res, next) {
   console.log("ha entrado en la verificacion");
+  console.log(req);
   const authHeader = req.headers["authorization"];
+  console.log(authHeader);
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) {
     console.log("ha entrado en token null");
@@ -370,7 +372,7 @@ function authenticateToken(req, res, next) {
 }
 
 //LOGOUT WITH JWT
-app.put("/api/logout", authenticateToken, async (req, res) => {
+app.post("/api/logout", authenticateToken, async (req, res) => {
   await Users.update(
     { access_token: "" },
     {
