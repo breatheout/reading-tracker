@@ -381,6 +381,7 @@ app.post(
         },
         offset: req.params.pagenum,
         limit: req.params.pagesize,
+        subQuery: false,
       });
     } else {
       query = await Books.findAll({
