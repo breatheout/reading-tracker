@@ -62,6 +62,7 @@ export class ShelfViewComponent implements OnInit {
       }
       await this.userInfo();
       await this.getLibrary();
+      this.getData();
     }
   }
 
@@ -84,10 +85,8 @@ export class ShelfViewComponent implements OnInit {
     }
   }*/
 
-  async getData() {
-    var payload = [this.sortFilter.value, this.orderFilter.value];
-
-    this.shelfDisplay = await this.userService
+  private getData() {
+    this.userService
       .getUserLibrary(this.shelfType.replace(/-/g, ' '))
       .subscribe((data: any) => {
         this.obsArray.next(data);
