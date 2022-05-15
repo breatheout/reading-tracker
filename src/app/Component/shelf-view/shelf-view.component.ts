@@ -25,7 +25,7 @@ export class ShelfViewComponent implements OnInit {
   obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   items$: Observable<any> = this.obsArray.asObservable();
   currentPage: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 3;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -87,7 +87,7 @@ export class ShelfViewComponent implements OnInit {
 
   private getData() {
     this.userService
-      .getUserLibrary(this.shelfType.replace(/-/g, ' '))
+      .getUserLibraryObservable(this.currentPage, this.pageSize, this.shelfType)
       .subscribe((data: any) => {
         this.obsArray.next(data);
       });
@@ -105,7 +105,11 @@ export class ShelfViewComponent implements OnInit {
         this.currentPage += this.pageSize;
         forkJoin([
           this.items$.pipe(take(1)),
-          this.userService.getUserLibrary(this.shelfType.replace(/-/g, ' ')),
+          this.userService.getUserLibraryObservable(
+            this.currentPage,
+            this.pageSize,
+            this.shelfType
+          ),
         ]).subscribe((data: Array<Array<any>>) => {
           const newArr = [...data[0], ...data[1]];
           this.obsArray.next(newArr);
@@ -119,8 +123,8 @@ export class ShelfViewComponent implements OnInit {
     try {
       console.log(payload);
       this.shelfDisplay = await this.userService.getUserLibrary(
-        this.shelfType.replace(/-/g, ' ')
-        //payload
+        this.shelfType.replace(/-/g, ' '),
+        payload
       );
       this.arrangeAuthors();
     } catch (error) {

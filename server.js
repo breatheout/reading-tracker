@@ -351,6 +351,49 @@ app.post("/api/user/library", authenticateToken, async (req, res) => {
   res.json(query);
 });
 
+//GET USER LIBRARY + GET BY TYPE - JWT - OBSERVABLES
+app.post(
+  "/api/observable/user/library/:pagenum/:pagesize",
+  authenticateToken,
+  async (req, res) => {
+    let payload, query;
+    if (req.body.type) {
+      if (
+        req.body.type != "reading" &&
+        req.body.type != "read" &&
+        req.body.type != "want to read" &&
+        req.body.type != "unfinished"
+      ) {
+        return res.sendStatus(400);
+      }
+    }
+    if (req.body.payload) {
+      payload = req.body.payload;
+    } else {
+      payload = ["dateStart", "DESC"];
+    }
+    if (req.body.type) {
+      query = await Books.findAll({
+        order: [payload],
+        where: {
+          username: req.user.username,
+          shelf: req.body.type,
+        },
+        offset: req.params.pagenum,
+        limit: req.params.pagesize,
+      });
+    } else {
+      query = await Books.findAll({
+        order: [payload],
+        where: {
+          username: req.user.username,
+        },
+      });
+    }
+    res.json(query);
+  }
+);
+
 //LOGOUT WITH JWT
 app.delete("/api/logout", authenticateToken, async (req, res) => {
   await Users.update(
