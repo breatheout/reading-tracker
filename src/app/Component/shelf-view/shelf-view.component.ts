@@ -16,7 +16,7 @@ import { map, take } from 'rxjs/operators';
 })
 export class ShelfViewComponent implements OnInit {
   shelfType: string;
-  shelfDisplay: any;
+  shelfDisplay: any[] = [];
 
   sortFilter: FormControl;
   orderFilter: FormControl;
