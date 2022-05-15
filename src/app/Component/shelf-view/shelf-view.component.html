@@ -1,6 +1,6 @@
 <!--ALERT BAR-->
 <div
-  *ngIf="shelfDisplay.length != 0"
+  *ngIf="shelfDisplay != []"
   class="alert alert-warning"
   class="alert alert-warning alert-dismissible fade show"
   role="alert"
@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <div *ngIf="shelfType != undefined && shelfDisplay.length != 0">
+  <div *ngIf="shelfType != undefined && shelfDisplay != []">
     <form action="" class="row g-3">
       <div class="col-auto">
         <label for="sortFilter">Sort by</label>

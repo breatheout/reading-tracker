@@ -16,7 +16,7 @@ export class ShelfViewComponent implements OnInit {
   shelfType: string;
   shelfDisplay: any[] = [];
   // infinite scroll code
-  sum = 20;
+  sum = 3;
   direction = '';
 
   sortFilter: FormControl;
