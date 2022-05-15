@@ -24,8 +24,8 @@ export class ShelfViewComponent implements OnInit {
 
   obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   items$: Observable<any> = this.obsArray.asObservable();
-  currentPage: number = 0;
-  pageSize: number = 3;
+  currentPage: number = 1;
+  pageSize: number = 4;
 
   constructor(
     private formBuilder: FormBuilder,
