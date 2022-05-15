@@ -6,6 +6,8 @@ import { UserService } from 'src/app/Services/user.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BookService } from 'src/app/Services/book.service';
+import { BehaviorSubject, forkJoin, fromEvent, Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shelf-view',
@@ -14,14 +16,16 @@ import { BookService } from 'src/app/Services/book.service';
 })
 export class ShelfViewComponent implements OnInit {
   shelfType: string;
-  shelfDisplay: any[] = [];
-  // infinite scroll code
-  sum = 3;
-  direction = '';
+  shelfDisplay: any;
 
   sortFilter: FormControl;
   orderFilter: FormControl;
   sortingForm: FormGroup;
+
+  obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  items$: Observable<any> = this.obsArray.asObservable();
+  currentPage: number = 0;
+  pageSize: number = 10;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,7 +63,6 @@ export class ShelfViewComponent implements OnInit {
       await this.userInfo();
       await this.getLibrary();
     }
-    this.appendItems();
   }
 
   async userInfo(): Promise<void> {
@@ -81,13 +84,44 @@ export class ShelfViewComponent implements OnInit {
     }
   }*/
 
+  async getData() {
+    var payload = [this.sortFilter.value, this.orderFilter.value];
+
+    this.shelfDisplay = await this.userService
+      .getUserLibrary(this.shelfType.replace(/-/g, ' '))
+      .subscribe((data: any) => {
+        this.obsArray.next(data);
+      });
+
+    const content = document.querySelector('.items');
+    const scroll$ = fromEvent(content!, 'scroll').pipe(
+      map(() => {
+        return content!.scrollTop;
+      })
+    );
+
+    scroll$.subscribe((scrollPos) => {
+      let limit = content!.scrollHeight - content!.clientHeight;
+      if (scrollPos === limit) {
+        this.currentPage += this.pageSize;
+        forkJoin([
+          this.items$.pipe(take(1)),
+          this.userService.getUserLibrary(this.shelfType.replace(/-/g, ' ')),
+        ]).subscribe((data: Array<Array<any>>) => {
+          const newArr = [...data[0], ...data[1]];
+          this.obsArray.next(newArr);
+        });
+      }
+    });
+  }
+
   async getLibrary(): Promise<void> {
     var payload = [this.sortFilter.value, this.orderFilter.value];
     try {
       console.log(payload);
       this.shelfDisplay = await this.userService.getUserLibrary(
-        this.shelfType.replace(/-/g, ' '),
-        payload
+        this.shelfType.replace(/-/g, ' ')
+        //payload
       );
       this.arrangeAuthors();
     } catch (error) {
@@ -136,40 +170,5 @@ export class ShelfViewComponent implements OnInit {
 
   goToBook(bookId: string): void {
     this.router.navigateByUrl('book/' + bookId);
-  }
-
-  onScrollDown(ev: any) {
-    console.log('scrolled down!!', ev);
-
-    this.sum += 4;
-    this.appendItems();
-
-    this.direction = 'scroll down';
-  }
-
-  onScrollUp(ev: any) {
-    console.log('scrolled up!', ev);
-    this.sum += 4;
-    this.prependItems();
-
-    this.direction = 'scroll up';
-  }
-
-  appendItems() {
-    this.addItems('push');
-  }
-
-  prependItems() {
-    this.addItems('unshift');
-  }
-
-  addItems(_method: string) {
-    for (let i = 0; i < this.sum; ++i) {
-      if (_method === 'push') {
-        this.shelfDisplay.push([i].join(''));
-      } else if (_method === 'unshift') {
-        this.shelfDisplay.unshift([i].join(''));
-      }
-    }
   }
 }

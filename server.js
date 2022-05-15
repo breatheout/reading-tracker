@@ -21,11 +21,11 @@ const Books = require("./sequelize-models/Books");
 const CsvParser = require("json2csv").Parser;
 
 db.sync();
-
+//CHANGE ORIGIN WHEN FINISHED TESTING
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://reading-tracker-application.herokuapp.com/",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );

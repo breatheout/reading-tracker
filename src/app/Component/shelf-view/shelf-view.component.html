@@ -1,6 +1,6 @@
 <!--ALERT BAR-->
 <div
-  *ngIf="shelfDisplay != []"
+  *ngIf="shelfDisplay.length == 0"
   class="alert alert-warning"
   class="alert alert-warning alert-dismissible fade show"
   role="alert"
@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <div *ngIf="shelfType != undefined && shelfDisplay != []">
+  <div *ngIf="shelfType != undefined && shelfDisplay.length != 0">
     <form action="" class="row g-3">
       <div class="col-auto">
         <label for="sortFilter">Sort by</label>
@@ -104,15 +104,8 @@
       </div>
     </form>
     <!--CARD-->
-    <div
-      style="overflow: auto"
-      infinite-scroll
-      [scrollWindow]="false"
-      (scrolled)="onScrollDown($event)"
-      (scrolledUp)="onScrollUp($event)"
-    >
-      >
-      <div *ngFor="let book of shelfDisplay">
+    <div style="overflow: scroll">
+      <div *ngFor="let book of shelfDisplay | async">
         <div class="my-3 mx-auto">
           <div class="row d-flex justify-content-center text-center">
             <div
