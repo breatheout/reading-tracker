@@ -14,7 +14,10 @@ import { BookService } from 'src/app/Services/book.service';
 })
 export class ShelfViewComponent implements OnInit {
   shelfType: string;
-  shelfDisplay: any;
+  shelfDisplay: any[] = [];
+  // infinite scroll code
+  sum = 20;
+  direction = '';
 
   sortFilter: FormControl;
   orderFilter: FormControl;
@@ -56,7 +59,7 @@ export class ShelfViewComponent implements OnInit {
       await this.userInfo();
       await this.getLibrary();
     }
-    console.log(this.shelfDisplay);
+    this.appendItems();
   }
 
   async userInfo(): Promise<void> {
@@ -133,5 +136,40 @@ export class ShelfViewComponent implements OnInit {
 
   goToBook(bookId: string): void {
     this.router.navigateByUrl('book/' + bookId);
+  }
+
+  onScrollDown(ev: any) {
+    console.log('scrolled down!!', ev);
+
+    this.sum += 4;
+    this.appendItems();
+
+    this.direction = 'scroll down';
+  }
+
+  onScrollUp(ev: any) {
+    console.log('scrolled up!', ev);
+    this.sum += 4;
+    this.prependItems();
+
+    this.direction = 'scroll up';
+  }
+
+  appendItems() {
+    this.addItems('push');
+  }
+
+  prependItems() {
+    this.addItems('unshift');
+  }
+
+  addItems(_method: string) {
+    for (let i = 0; i < this.sum; ++i) {
+      if (_method === 'push') {
+        this.shelfDisplay.push([i].join(''));
+      } else if (_method === 'unshift') {
+        this.shelfDisplay.unshift([i].join(''));
+      }
+    }
   }
 }

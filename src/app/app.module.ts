@@ -21,6 +21,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { ChartComponent } from './Component/chart/chart.component';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     NgChartsModule,
     RouterModule,
+    InfiniteScrollModule,
   ],
   providers: [
     /*    {
