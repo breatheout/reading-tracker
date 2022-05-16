@@ -7,6 +7,7 @@ import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BookService } from 'src/app/Services/book.service';
 import { BehaviorSubject, forkJoin, fromEvent, Observable } from 'rxjs';
+import { StarsComponent } from '../stars/stars.component';
 import { map, take } from 'rxjs/operators';
 
 @Component({
@@ -22,16 +23,14 @@ export class ShelfViewComponent implements OnInit {
   orderFilter: FormControl;
   sortingForm: FormGroup;
 
+  /*
   obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   items$: Observable<any> = this.obsArray.asObservable();
   currentPage: number = 1;
   pageSize: number = 4;
-
   content: any;
-
   scroll$: any;
-
-  obsDelete: any;
+  obsDelete: any;*/
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,7 +67,7 @@ export class ShelfViewComponent implements OnInit {
       }
       await this.userInfo();
       await this.getLibrary();
-      this.getData();
+      //this.getData();
     }
   }
 
@@ -80,6 +79,67 @@ export class ShelfViewComponent implements OnInit {
     }
   }
 
+  async getLibrary(): Promise<void> {
+    var payload = [this.sortFilter.value, this.orderFilter.value];
+    try {
+      console.log(payload);
+      this.shelfDisplay = await this.userService.getUserLibrary(
+        this.shelfType.replace(/-/g, ' '),
+        payload
+      );
+      this.arrangeAuthors();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  remove(bookId: string): void {
+    var result = confirm(
+      'This book will be remove from your library and all data will be lost, do you want to continue?'
+    );
+    if (result) {
+      this.bookService.deleteBook(bookId);
+      window.location.reload();
+    }
+  }
+
+  arrangeAuthors(): void {
+    if (this.shelfType != null) {
+      for (const book of this.shelfDisplay) {
+        book.authors = book.authors.replaceAll('["', '');
+        book.authors = book.authors.replaceAll('"]', '');
+        book.authors = book.authors.replaceAll('","', ', ');
+        book.authors = book.authors.trim();
+      }
+    }
+  }
+
+  async goToRead(): Promise<void> {
+    await this.router.navigateByUrl('shelf/read').then(() => {
+      this.ngOnInit();
+      //window.location.reload();
+    });
+  }
+
+  async goToReading(): Promise<void> {
+    await this.router.navigateByUrl('shelf/reading').then(() => {
+      this.ngOnInit();
+      //window.location.reload();
+    });
+  }
+
+  async goToWantToRead(): Promise<void> {
+    await this.router.navigateByUrl('shelf/want-to-read').then(() => {
+      this.ngOnInit();
+      //window.location.reload();
+    });
+  }
+
+  goToBook(bookId: string): void {
+    this.router.navigateByUrl('book/' + bookId);
+  }
+
+  /*
   getData() {
     if (this.obsDelete != null) {
       this.obsDelete.unsubscribe();
@@ -123,65 +183,5 @@ export class ShelfViewComponent implements OnInit {
         });
       }
     });
-  }
-
-  async getLibrary(): Promise<void> {
-    var payload = [this.sortFilter.value, this.orderFilter.value];
-    try {
-      console.log(payload);
-      this.shelfDisplay = await this.userService.getUserLibrary(
-        this.shelfType.replace(/-/g, ' '),
-        payload
-      );
-      this.arrangeAuthors();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  remove(bookId: string): void {
-    var result = confirm(
-      'This book will be remove from your library and all data will be lost, do you want to continue?'
-    );
-    if (result) {
-      this.bookService.deleteBook(bookId);
-      window.location.reload();
-    }
-  }
-
-  arrangeAuthors(): void {
-    if (this.shelfType != null) {
-      for (const book of this.shelfDisplay) {
-        book.authors = book.authors.replaceAll('["', '');
-        book.authors = book.authors.replaceAll('"]', '');
-        book.authors = book.authors.replaceAll('","', ', ');
-        book.authors = book.authors.trim();
-      }
-    }
-  }
-
-  async goToRead(): Promise<void> {
-    await this.router.navigateByUrl('shelf/read').then(() => {
-      //this.ngOnInit();
-      window.location.reload();
-    });
-  }
-
-  async goToReading(): Promise<void> {
-    await this.router.navigateByUrl('shelf/reading').then(() => {
-      //this.ngOnInit();
-      window.location.reload();
-    });
-  }
-
-  async goToWantToRead(): Promise<void> {
-    await this.router.navigateByUrl('shelf/want-to-read').then(() => {
-      //this.ngOnInit();
-      window.location.reload();
-    });
-  }
-
-  goToBook(bookId: string): void {
-    this.router.navigateByUrl('book/' + bookId);
-  }
+  }*/
 }

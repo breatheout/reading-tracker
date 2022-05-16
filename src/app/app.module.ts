@@ -22,6 +22,7 @@ import { ChartComponent } from './Component/chart/chart.component';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { StarsComponent } from './Component/stars/stars.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ProfileComponent,
     StatsComponent,
     ChartComponent,
+    StarsComponent,
   ],
   exports: [ChartComponent],
   imports: [

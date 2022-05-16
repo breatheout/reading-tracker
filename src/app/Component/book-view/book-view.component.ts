@@ -6,6 +6,7 @@ import { GoogleBooksService } from 'src/app/Services/google-books.service';
 import { BookPost } from 'src/app/Models/bookpost.model';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { UserService } from 'src/app/Services/user.service';
+import { StarsComponent } from '../stars/stars.component';
 
 @Component({
   selector: 'app-book-view',

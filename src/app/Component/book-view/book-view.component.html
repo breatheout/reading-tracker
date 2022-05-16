@@ -146,7 +146,12 @@
               value="{{ rating }}"
             />
             -->
-            <!--////////// STAR ////////////////////-->
+            <app-stars
+              #starchild
+              [rating]="bookInLibrary[0].rating"
+              *ngIf="bookInLibrary !== undefined"
+            ></app-stars>
+            <!--////////// STAR ////////////////////--><!--
             <div class="rate" *ngIf="bookInLibrary !== undefined">
               <input
                 type="radio"
@@ -219,13 +224,13 @@
                 [checked]="bookInLibrary[0].rating === 1"
               /><label class="half" for="rating1" title="1/2 star"></label>
             </div>
-
+-->
             <!--////////////////////////////////////////////////-->
           </div>
         </div>
 
         <div class="form-group form-row">
-          <div class="col-md-6 my-3 mx-auto">
+          <div class="col-md-6 my-3 mx-auto w-100">
             <label class="" for="notes">Add your personal notes:</label>
 
             <textarea
