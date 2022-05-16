@@ -379,8 +379,8 @@ app.post(
           username: req.user.username,
           shelf: req.body.type,
         },
-        limit: req.params.pagesize,
-        offset: req.params.pagenum,
+        limit: Number(req.params.pagesize),
+        offset: Number(req.params.pagenum),
         subQuery: false,
       });
     } else {
