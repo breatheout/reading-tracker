@@ -34,3 +34,13 @@
   overflow-x: hidden;
   height: 75vh;
 }
+
+.items::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.items {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

@@ -27,6 +27,12 @@ export class ShelfViewComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 4;
 
+  content: any;
+
+  scroll$: any;
+
+  obsDelete: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -75,6 +81,10 @@ export class ShelfViewComponent implements OnInit {
   }
 
   getData() {
+    if (this.obsDelete != null) {
+      this.obsDelete.unsubscribe();
+    }
+
     var payload = [this.sortFilter.value, this.orderFilter.value];
     this.userService
       .getUserLibraryObservable(
@@ -87,16 +97,16 @@ export class ShelfViewComponent implements OnInit {
         this.obsArray.next(data);
       });
 
-    const content = document.querySelector('.items');
-    console.log('Content is: ' + content);
-    const scroll$ = fromEvent(content!, 'scroll').pipe(
+    this.content = document.querySelector('.items');
+    console.log('Content is: ' + this.content);
+    this.scroll$ = fromEvent(this.content!, 'scroll').pipe(
       map(() => {
-        return content!.scrollTop;
+        return this.content!.scrollTop;
       })
     );
 
-    scroll$.subscribe((scrollPos) => {
-      let limit = content!.scrollHeight - content!.clientHeight;
+    this.obsDelete = this.scroll$.subscribe((scrollPos) => {
+      let limit = this.content!.scrollHeight - this.content!.clientHeight;
       if (scrollPos === limit) {
         this.currentPage += this.pageSize;
         forkJoin([
@@ -152,19 +162,22 @@ export class ShelfViewComponent implements OnInit {
 
   async goToRead(): Promise<void> {
     await this.router.navigateByUrl('shelf/read').then(() => {
-      this.ngOnInit();
+      //this.ngOnInit();
+      window.location.reload();
     });
   }
 
   async goToReading(): Promise<void> {
     await this.router.navigateByUrl('shelf/reading').then(() => {
-      this.ngOnInit();
+      //this.ngOnInit();
+      window.location.reload();
     });
   }
 
   async goToWantToRead(): Promise<void> {
     await this.router.navigateByUrl('shelf/want-to-read').then(() => {
-      this.ngOnInit();
+      //this.ngOnInit();
+      window.location.reload();
     });
   }
 
