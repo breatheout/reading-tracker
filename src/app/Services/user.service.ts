@@ -81,15 +81,17 @@ export class UserService {
       .toPromise();
   }
 
-  getUserLibrary(type?: string, payload?: any): any {
-    return this.http.post<any>(
-      'https://reading-tracker-application.herokuapp.com/api/user/library/',
-      {
-        payload,
-        type,
-      },
-      this.authHeader
-    );
+  getUserLibrary(type?: string, payload?: any): Promise<any> {
+    return this.http
+      .post<any>(
+        'https://reading-tracker-application.herokuapp.com/api/user/library/',
+        {
+          payload,
+          type,
+        },
+        this.authHeader
+      )
+      .toPromise();
   }
 
   getUserLibraryObservable(
