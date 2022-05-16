@@ -40,7 +40,6 @@ export class SearchBookComponent implements AfterViewInit {
 
           const books: Book[] = await bookObservable.toPromise();
           //const bookID = books[0].id;
-          console.log(`all books: ${books}`);
           this.results = books;
 
           //const book = await this.bookService.getById(bookID).toPromise();

@@ -36,7 +36,6 @@ export class BookViewComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.bookID = this.route.snapshot.paramMap.get('id');
-    console.log('peticion para el book service por id');
     this.book = await this.bookService.getById(this.bookID).toPromise();
     this.arrangeGenres();
     this.bookPost = {
@@ -54,8 +53,6 @@ export class BookViewComponent implements OnInit {
       rating: null,
     };
     this.finishedLoading = true;
-    console.log('despues de la transformacion');
-    console.log(this.bookPost.genre);
     this.bookInLibrary = await this.userService.checkUserHasBook(this.bookID);
     this.setFormControl();
 
@@ -65,12 +62,9 @@ export class BookViewComponent implements OnInit {
       );
       collapse.classList.add('show');
     }
-
-    console.log(this.bookInLibrary[0]);
   }
 
   async addBook(): Promise<void> {
-    console.log('entra en el add book');
     try {
       var readingStatus;
       if (this.bookPost.finishedDate != '') {
@@ -81,9 +75,7 @@ export class BookViewComponent implements OnInit {
         )).value;
       }
       this.bookPost.shelf = readingStatus;
-      console.log('INPUT');
 
-      console.log(this.bookPost.rating);
       this.bookPost.notes = (<HTMLSelectElement>(
         document.getElementById('notes')
       )).value;
@@ -97,7 +89,6 @@ export class BookViewComponent implements OnInit {
       } else if (readingStatus == 'read' && this.ngDateInputEnd == '') {
         this.bookPost.finishedDate = this.getTodaysDate();
       }
-      console.log('llama al bookpostservice y addbook');
       await this.bookPostService.addBook(this.bookPost);
       //this.registerSuccess();
     } catch (error: any) {

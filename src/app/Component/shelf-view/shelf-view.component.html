@@ -1,6 +1,6 @@
 <!--ALERT BAR-->
 <div
-  *ngIf="shelfDisplay.length == 0"
+  *ngIf="shelfDisplay == undefined"
   class="alert alert-warning"
   class="alert alert-warning alert-dismissible fade show"
   role="alert"
@@ -28,8 +28,12 @@
     aria-label="Close"
   ></button>
 </div>
-<!--SHELF NAV BAR-->
+
 <div class="container">
+  <!--SHELF NAV BAR-->
+  <h1 class="h3 text-center mt-2" *ngIf="shelfType == undefined">
+    Please select a shelf
+  </h1>
   <div class="w-100 my-2 mx-auto">
     <div
       class="btn-group mx-auto w-100 mx-auto"
@@ -69,7 +73,7 @@
   </div>
 
   <!--<div *ngIf="shelfType != undefined && shelfDisplay.length != 0">-->
-  <div>
+  <div *ngIf="shelfType != undefined && shelfDisplay.length != 0">
     <form action="" class="row g-3">
       <div class="col-auto">
         <label for="sortFilter">Sort by</label>

@@ -42,7 +42,7 @@ export class SharedService {
   private processToast(): void {
     if (this.validRequest) {
       //Refactor: Extract Method
-      this.showMessage('show requestOk', 'Form submitted successfully.');
+      this.showMessage('show requestOk', 'Info submitted successfully.');
     } else {
       //Refactor: Extract Method
       this.showMessage('show requestKo', this.makeErrorMessage());
@@ -52,19 +52,21 @@ export class SharedService {
   private makeErrorMessage(): string {
     if (this.error?.messageDetail) {
       return (
-        'Error on form submitted, show logs. Message: ' +
+        /*'Error on form submitted, show logs. Message: ' +
         this.error?.message +
         '. Message detail: ' +
         this.error?.messageDetail +
         '. Status code: ' +
-        this.error?.statusCode
+        this.error?.statusCode*/
+        'Your username or password are not correct.'
       );
     } else {
       return (
-        'Error on form submitted, show logs. Message: ' +
+        /*'Error on form submitted, show logs. Message: ' +
         this.error?.message +
         '. Status code: ' +
-        this.error?.statusCode
+        this.error?.statusCode*/
+        'Your username or password are not correct.'
       );
     }
   }

@@ -53,7 +53,6 @@ export class ShelfViewComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.shelfType = this.route.snapshot.paramMap.get('type');
-    console.log(this.shelfType);
     if (this.shelfType) {
       if (this.shelfType == 'want-to-read') {
         this.sortFilter.setValue('createdAt');
@@ -82,7 +81,6 @@ export class ShelfViewComponent implements OnInit {
   async getLibrary(): Promise<void> {
     var payload = [this.sortFilter.value, this.orderFilter.value];
     try {
-      console.log(payload);
       this.shelfDisplay = await this.userService.getUserLibrary(
         this.shelfType.replace(/-/g, ' '),
         payload

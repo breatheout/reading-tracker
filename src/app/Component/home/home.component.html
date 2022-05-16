@@ -71,21 +71,23 @@
   <div class="container mt-5 text-center">
     <h2 class="background-container">
       <a [routerLink]="['/shelf/want-to-read']" class="header-link"
-        >Want to read</a
+        >Books read</a
       >
     </h2>
-    <div
-      class="d-flex flex-row flex-wrap justify-content-center border-container"
-    >
-      <div *ngFor="let book of wantBooks; i as index">
-        <a [routerLink]="['/book/' + book.bookId]">
-          <img
-            class="m-2 img-fluid thumbnail"
-            src="{{ book.cover }}"
-            alt="book cover"
-        /></a>
+    <div class="border-container">
+      <div
+        class="d-flex flex-row flex-wrap justify-content-center w-100 my-auto"
+      >
+        <div *ngFor="let book of wantBooks; i as index" class="">
+          <a [routerLink]="['/book/' + book.bookId]">
+            <img
+              class="m-2 img-fluid thumbnail"
+              src="{{ book.cover }}"
+              alt="book cover"
+          /></a>
+        </div>
       </div>
-      <div class="d-flex flex-row justify-content-center">
+      <div class="justify-content-center">
         <a [routerLink]="['/book/want-to-read']" class="link-dark">see more</a>
       </div>
     </div>
@@ -96,18 +98,20 @@
     <h2 class="background-container">
       <a [routerLink]="['/shelf/read']" class="header-link">Books read</a>
     </h2>
-    <div
-      class="d-flex flex-row flex-wrap justify-content-center border-container"
-    >
-      <div *ngFor="let book of readBooks; i as index">
-        <a [routerLink]="['/book/' + book.bookId]">
-          <img
-            class="m-2 img-fluid thumbnail"
-            src="{{ book.cover }}"
-            alt="book cover"
-        /></a>
+    <div class="border-container">
+      <div
+        class="d-flex flex-row flex-wrap justify-content-center w-100 my-auto"
+      >
+        <div *ngFor="let book of readBooks; i as index" class="">
+          <a [routerLink]="['/book/' + book.bookId]">
+            <img
+              class="m-2 img-fluid thumbnail"
+              src="{{ book.cover }}"
+              alt="book cover"
+          /></a>
+        </div>
       </div>
-      <div class="d-flex flex-row justify-content-center">
+      <div class="justify-content-center">
         <a [routerLink]="['/book/read']" class="link-dark">see more</a>
       </div>
     </div>
