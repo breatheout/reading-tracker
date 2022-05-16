@@ -74,25 +74,21 @@ export class ShelfViewComponent implements OnInit {
     }
   }
 
-  /*async getLibrary(): Promise<void> {
-    try {
-      this.shelfDisplay = await this.userService.getUserLibraryByType(
-        this.localStorageService.get('user_id'),
-        this.shelfType
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  }*/
-
-  private getData() {
+  getData() {
+    var payload = [this.sortFilter.value, this.orderFilter.value];
     this.userService
-      .getUserLibraryObservable(this.currentPage, this.pageSize, this.shelfType)
+      .getUserLibraryObservable(
+        this.currentPage,
+        this.pageSize,
+        this.shelfType.replace(/-/g, ' '),
+        payload
+      )
       .subscribe((data: any) => {
         this.obsArray.next(data);
       });
 
     const content = document.querySelector('.items');
+    console.log('Content is: ' + content);
     const scroll$ = fromEvent(content!, 'scroll').pipe(
       map(() => {
         return content!.scrollTop;
@@ -108,7 +104,8 @@ export class ShelfViewComponent implements OnInit {
           this.userService.getUserLibraryObservable(
             this.currentPage,
             this.pageSize,
-            this.shelfType
+            this.shelfType.replace(/-/g, ' '),
+            payload
           ),
         ]).subscribe((data: Array<Array<any>>) => {
           const newArr = [...data[0], ...data[1]];

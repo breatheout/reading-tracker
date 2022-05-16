@@ -104,6 +104,7 @@ export class UserService {
       pagenum = 1;
       pagesize = 10;
     }
+    const spacesReplaced = type.replace(' ', '-');
     return this.http.post<any>(
       'https://reading-tracker-application.herokuapp.com/api/observable/user/library/' +
         pagenum +
