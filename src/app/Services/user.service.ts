@@ -98,6 +98,10 @@ export class UserService {
     type?: string,
     payload?: any
   ): any {
+    if (pagenum == null && pagesize == null) {
+      pagenum = 1;
+      pagesize = 10;
+    }
     return this.http.post<any>(
       'https://reading-tracker-application.herokuapp.com/api/observable/user/library/' +
         pagenum +
