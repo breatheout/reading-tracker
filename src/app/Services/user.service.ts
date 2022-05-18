@@ -1,10 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../Models/user.model';
-import { BookPost } from '../Models/bookpost.model';
-import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
-import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +9,6 @@ export class UserService {
   private url: string;
   private controller: string;
   private httpDownloadOptions: any;
-  private authHeader: object;
 
   constructor(
     private http: HttpClient,
@@ -24,14 +20,8 @@ export class UserService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + this.localStorageService.get('access_token'),
       }),
       responseType: 'text' as 'json',
-    };
-    this.authHeader = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.localStorageService.get('access_token'),
-      }),
     };
   }
 
@@ -48,8 +38,7 @@ export class UserService {
     return this.http
       .put<string>(
         'https://reading-tracker-application.herokuapp.com/api/password',
-        passwords,
-        this.authHeader
+        passwords
       )
       .toPromise();
   }
@@ -65,18 +54,14 @@ export class UserService {
 
   deleteUser() {
     return this.http
-      .delete(
-        'https://reading-tracker-application.herokuapp.com/api/delete',
-        this.authHeader
-      )
+      .delete('https://reading-tracker-application.herokuapp.com/api/delete')
       .toPromise();
   }
 
   getUserInfo() {
     return this.http
       .get<any>(
-        'https://reading-tracker-application.herokuapp.com/api/user/info',
-        this.authHeader
+        'https://reading-tracker-application.herokuapp.com/api/user/info'
       )
       .toPromise();
   }
@@ -88,12 +73,21 @@ export class UserService {
         {
           payload,
           type,
-        },
-        this.authHeader
+        }
       )
       .toPromise();
   }
 
+  checkUserHasBook(bookId: string): any {
+    return this.http
+      .get(
+        'https://reading-tracker-application.herokuapp.com/api/user/book/' +
+          bookId
+      )
+      .toPromise();
+  }
+
+  /* To implement infinite scroll (abandoned feature) */
   getUserLibraryObservable(
     pagenum: number,
     pagesize: number,
@@ -112,19 +106,8 @@ export class UserService {
         pagesize,
       {
         payload,
-        type,
-      },
-      this.authHeader
+        spacesReplaced,
+      }
     );
-  }
-
-  checkUserHasBook(bookId: string): any {
-    return this.http
-      .get(
-        'https://reading-tracker-application.herokuapp.com/api/user/book/' +
-          bookId,
-        this.authHeader
-      )
-      .toPromise();
   }
 }
