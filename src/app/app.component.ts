@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { GoogleBooksService } from './Services/google-books.service';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,6 @@ import { Subject } from 'rxjs';
 })
 export class AppComponent {
   title = 'reading-tracker';
-  $: any;
 
   constructor() {}
 }

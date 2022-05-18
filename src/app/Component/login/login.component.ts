@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     this.localStorageService.set('user_id', authToken.user_id);
     this.localStorageService.set('access_token', authToken.access_token);
 
-    await this.sharedService.managementToast('loginFeedback', true);
+    await this.sharedService.managementToast('formFeedback', true);
 
     this.headerMenusService.headerManagement.next({
       showAuthSection: true,
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
     });
     await this.sharedService.errorLog(error.error);
     await this.sharedService.managementToast(
-      'loginFeedback',
+      'formFeedback',
       false,
       error.error
     );

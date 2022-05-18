@@ -28,8 +28,8 @@ export class HeaderComponent implements OnInit {
     this.headerMenusService.headerManagement.subscribe(
       (headerInfo: HeaderMenus) => {
         if (headerInfo) {
-          this.showAuthSection = headerInfo.showNoAuthSection;
-          this.showNoAuthSection = headerInfo.showAuthSection;
+          this.showAuthSection = headerInfo.showAuthSection;
+          this.showNoAuthSection = headerInfo.showNoAuthSection;
         }
       }
     );
@@ -47,14 +47,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('register');
   }
 
-  adminPosts(): void {
-    this.router.navigateByUrl('posts');
-  }
-
-  adminCategories(): void {
-    this.router.navigateByUrl('categories');
-  }
-
   profile(): void {
     this.router.navigateByUrl('profile');
   }
@@ -66,22 +58,6 @@ export class HeaderComponent implements OnInit {
   shelf(): void {
     this.router.navigateByUrl('shelf');
   }
-  /*
-  logout(): void {
-    this.localStorageService.remove('user_id');
-    this.localStorageService.remove('access_token');
-
-    const headerInfo: HeaderMenus = {
-      showAuthSection: false,
-      showNoAuthSection: true,
-    };
-
-    this.headerMenusService.headerManagement.next(headerInfo);
-
-    this.router.navigateByUrl('home').then(() => {
-      window.location.reload();
-    });
-  }*/
 
   async logout(): Promise<void> {
     await this.authService.logout();

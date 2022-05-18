@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { SharedService } from 'src/app/Services/shared.service';
 import { UserService } from 'src/app/Services/user.service';
 import { saveAs } from 'file-saver';
@@ -29,8 +28,7 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private sharedService: SharedService,
-    private localStorageService: LocalStorageService
+    private sharedService: SharedService
   ) {
     this.passwordOld = new FormControl('', [
       Validators.required,
@@ -64,22 +62,17 @@ export class ProfileComponent implements OnInit {
   }
 
   async updatePassword(): Promise<void> {
-    console.log('empieza la funcion');
     this.isValidForm = true;
     if (this.isValidForm == true) {
-      console.log('form es valido');
       //this.registerUser = this.form.value;
       let passwords = {
         old: this.passwordOld.value,
         new: this.passwordNew.value,
       };
-      console.log('password array: ', passwords);
       try {
-        console.log('entra ene l try');
         await this.userService.updatePassword(passwords);
         this.updatePasswordSuccess();
       } catch (error: any) {
-        console.log('ha entrado en el error');
         this.updatePasswordFail(error);
       }
     }
@@ -90,7 +83,6 @@ export class ProfileComponent implements OnInit {
       'This account will be permanently deleted and all data will be lost, do you want to continue?'
     );
     if (confirmation) {
-      console.log('se ha confirmado');
       this.userService.deleteUser();
     }
     alert('Your account has been deleted');
@@ -98,19 +90,15 @@ export class ProfileComponent implements OnInit {
     this.router.navigateByUrl('home');
   }
 
-  navigate(): void {
-    this.router.navigateByUrl('home');
-  }
-
   private async updatePasswordSuccess(): Promise<void> {
-    await this.sharedService.managementToast('registerFeedback', true);
+    await this.sharedService.managementToast('formFeedback', true);
     this.passwordForm.reset();
   }
 
   private async updatePasswordFail(error: any): Promise<void> {
     await this.sharedService.errorLog(error.error);
     await this.sharedService.managementToast(
-      'registerFeedback',
+      'formFeedback',
       false,
       error.error
     );

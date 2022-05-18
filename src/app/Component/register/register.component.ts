@@ -14,7 +14,7 @@ import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private async registerSuccess(): Promise<void> {
-    await this.sharedService.managementToast('registerFeedback', true);
+    await this.sharedService.managementToast('formFeedback', true);
     this.form.reset();
     this.router.navigateByUrl('home');
   }
@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit {
     });
     await this.sharedService.errorLog(error.error);
     await this.sharedService.managementToast(
-      'registerFeedback',
+      'formFeedback',
       false,
       error.error
     );

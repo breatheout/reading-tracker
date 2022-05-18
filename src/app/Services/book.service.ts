@@ -7,16 +7,12 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root',
 })
 export class BookService {
-  private url: string;
-  private controller: string;
   private authHeader: object;
 
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService
   ) {
-    this.controller = 'api/books';
-    this.url = 'http://localhost:3000/' + this.controller;
     this.authHeader = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.localStorageService.get('access_token'),

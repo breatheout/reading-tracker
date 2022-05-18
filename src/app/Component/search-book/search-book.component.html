@@ -9,15 +9,10 @@
     />
   </form>
 
-  <!--<app-search-list bookTitle="{{result1}}" detectsChanges="{{loading}}"></app-search-list>-->
-
-  <!--<app-search-list bookTitle="{{result}}" detectsChanges="{{loading}}"></app-search-list>-->
-
   <div
     *ngIf="results !== undefined"
     class="container mb-3 justify-content-center border-container"
   >
-    <!--<h2 class="text-2xl font-bold">result</h2>-->
     <h1 class="h2">
       <span *ngIf="results !== undefined" class="results">Results</span>
     </h1>
@@ -37,15 +32,6 @@
           </p>
         </div>
       </a>
-
-      <!--  <form class="w-50 m-auto" action="">
-
-        <select class="form-select" name="reading status" id="reading">
-          <option value="to-read">To read</option>
-          <option value="reading">Reading</option>
-          <option value="not-finished">Did not finish</option>
-        </select>
-      </form> -->
 
       <form
         class="row d-flex justify-content-center"

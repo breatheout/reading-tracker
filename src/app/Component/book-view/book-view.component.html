@@ -65,19 +65,6 @@
     </form>
   </div>
 
-  <!--<div class="mx-5 my-auto">
-    <button class="">
-      <svg
-        class="fill-current w-4 h-4 mr-2"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-      >
-        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-      </svg>
-      <a href="{{ book.selfLink }}" target="_blank">JSON</a>
-    </button>
-  </div>-->
-
   <!--DATE SELECTOR-->
   <div class="text-center mb-5" *ngIf="ngDropdown != 'want to read'">
     <a
@@ -133,99 +120,15 @@
             />
           </div>
         </div>
-
+        <!--Star component-->
         <div class="form-group form-row">
           <div class="col-sm-auto my-2 mx-auto text-center">
             <label class="" for="rating">Add your rating:</label>
-            <!--
-            <input
-              class="form-control"
-              type="text"
-              id="rating"
-              name="rating"
-              value="{{ rating }}"
-            />
-            -->
             <app-stars
               #starchild
               [rating]="bookInLibrary[0].rating"
               *ngIf="bookInLibrary !== undefined"
             ></app-stars>
-            <!--////////// STAR ////////////////////--><!--
-            <div class="rate" *ngIf="bookInLibrary !== undefined">
-              <input
-                type="radio"
-                id="rating10"
-                name="rating"
-                value="10"
-                [checked]="bookInLibrary[0].rating == 10"
-              /><label for="rating10" title="5 stars"></label>
-              <input
-                type="radio"
-                id="rating9"
-                name="rating"
-                value="9"
-                [checked]="bookInLibrary[0].rating === 9"
-              /><label class="half" for="rating9" title="4 1/2 stars"></label>
-              <input
-                type="radio"
-                id="rating8"
-                name="rating"
-                value="8"
-                [checked]="bookInLibrary[0].rating === 8"
-              /><label for="rating8" title="4 stars"></label>
-              <input
-                type="radio"
-                id="rating7"
-                name="rating"
-                value="7"
-                [checked]="bookInLibrary[0].rating === 7"
-              /><label class="half" for="rating7" title="3 1/2 stars"></label>
-              <input
-                type="radio"
-                id="rating6"
-                name="rating"
-                value="6"
-                [checked]="bookInLibrary[0].rating === 6"
-              /><label for="rating6" title="3 stars"></label>
-              <input
-                type="radio"
-                id="rating5"
-                name="rating"
-                value="5"
-                [checked]="bookInLibrary[0].rating === 5"
-              /><label class="half" for="rating5" title="2 1/2 stars"></label>
-              <input
-                type="radio"
-                id="rating4"
-                name="rating"
-                value="4"
-                [checked]="bookInLibrary[0].rating === 4"
-              /><label for="rating4" title="2 stars"></label>
-              <input
-                type="radio"
-                id="rating3"
-                name="rating"
-                value="3"
-                [checked]="bookInLibrary[0].rating === 3"
-              /><label class="half" for="rating3" title="1 1/2 stars"></label>
-              <input
-                type="radio"
-                id="rating2"
-                name="rating"
-                value="2"
-                [checked]="bookInLibrary[0].rating === 2"
-              /><label for="rating2" title="1 star"></label>
-              <input
-                type="radio"
-                id="rating1"
-                name="rating"
-                value="1"
-                [checked]="bookInLibrary[0].rating === 1"
-              /><label class="half" for="rating1" title="1/2 star"></label>
-            </div>
--->
-            <!--////////////////////////////////////////////////-->
           </div>
         </div>
 
@@ -255,10 +158,10 @@
     <h1 class="header-title">Genres</h1>
 
     <div class="mx-auto my-5 px-6 pt-4 pb-2">
-      <div class="flex flex-wrap new-class-parent">
+      <div class="flex flex-wrap genre-container">
         <span
           *ngFor="let genre of genres"
-          class="badge rounded-pill bg-info new-class"
+          class="badge rounded-pill bg-info genre-pill"
           >{{ genre }}</span
         >
         <p

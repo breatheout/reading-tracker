@@ -17,13 +17,13 @@ export class BookViewComponent implements OnInit {
   book: Book = new Book();
   bookID: string;
   bookPost: BookPost;
-  bookInLibrary: any;
+  bookInLibrary: object;
   ngDropdown: string = 'default';
   ngDateInputStart: string;
   ngDateInputEnd: string = '';
   rating: number;
   notes: string;
-  genres: any;
+  genres: Array<any>;
   finishedLoading: boolean;
 
   constructor(
@@ -36,8 +36,11 @@ export class BookViewComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.bookID = this.route.snapshot.paramMap.get('id');
+    // Get JSON book from Google API
     this.book = await this.bookService.getById(this.bookID).toPromise();
+    // Re-order and delete duplicate genres
     this.arrangeGenres();
+    // Prepare data to send to our DB
     this.bookPost = {
       username: this.localStorageService.get('user_id'),
       id: this.book.id,
@@ -52,10 +55,12 @@ export class BookViewComponent implements OnInit {
       notes: '',
       rating: null,
     };
+    // Controls display of loading spinner
     this.finishedLoading = true;
+    // Check if the book is in the user's library
     this.bookInLibrary = await this.userService.checkUserHasBook(this.bookID);
     this.setFormControl();
-
+    // Collapsible area
     if (this.ngDropdown == 'read' || this.ngDropdown == 'reading') {
       let collapse = <HTMLSelectElement>(
         document.getElementById('collapseExample')
@@ -90,9 +95,8 @@ export class BookViewComponent implements OnInit {
         this.bookPost.finishedDate = this.getTodaysDate();
       }
       await this.bookPostService.addBook(this.bookPost);
-      //this.registerSuccess();
     } catch (error: any) {
-      //this.registerFail(error);
+      console.log(error);
     }
     this.refresh();
   }

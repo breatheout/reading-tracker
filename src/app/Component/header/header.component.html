@@ -4,10 +4,7 @@
   <div class="container-fluid" *ngIf="showNoAuthSection">
     <a class="navbar-brand" [routerLink]="['/#']">
       <div>
-        <span class="span-logo">
-          Reading<br />
-          Tracker
-        </span>
+        <span class="span-logo"> Reading Tracker </span>
       </div></a
     >
     <button
@@ -85,7 +82,11 @@
           <a class="nav-link" [routerLink]="['/profile']">Account</a>
         </li>
         <li class="nav-item d-flex">
-          <button type="button" class="btn btn-link" (click)="logout()">
+          <button
+            type="button"
+            class="btn btn-link link-unset"
+            (click)="logout()"
+          >
             Logout
           </button>
         </li>
