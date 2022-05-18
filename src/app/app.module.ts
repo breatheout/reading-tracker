@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +10,6 @@ import { RegisterComponent } from './Component/register/register.component';
 import { HomeComponent } from './Component/home/home.component';
 import { SearchBookComponent } from './Component/search-book/search-book.component';
 import { BookViewComponent } from './Component/book-view/book-view.component';
-
 import { HeaderComponent } from './Component/header/header.component';
 import { ShelfViewComponent } from './Component/shelf-view/shelf-view.component';
 import { ProfileComponent } from './Component/profile/profile.component';
@@ -19,7 +17,6 @@ import { StatsComponent } from './Component/stats/stats.component';
 import { AuthInterceptorService } from './Services/auth-interceptor.service';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartComponent } from './Component/chart/chart.component';
-import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { StarsComponent } from './Component/stars/stars.component';
@@ -32,7 +29,6 @@ import { StarsComponent } from './Component/stars/stars.component';
     HomeComponent,
     SearchBookComponent,
     BookViewComponent,
-
     HeaderComponent,
     ShelfViewComponent,
     ProfileComponent,

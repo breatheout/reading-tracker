@@ -10,10 +10,7 @@ export class UserService {
   private controller: string;
   private httpDownloadOptions: any;
 
-  constructor(
-    private http: HttpClient,
-    private localStorageService: LocalStorageService
-  ) {
+  constructor(private http: HttpClient) {
     this.controller = 'user';
     this.url = 'http://localhost:3000/api/' + this.controller;
     this.httpDownloadOptions = {
