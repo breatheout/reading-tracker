@@ -12,20 +12,13 @@ export class BookService {
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService
-  ) {
-    this.authHeader = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.localStorageService.get('access_token'),
-      }),
-    };
-  }
+  ) {}
 
   addBook(book: BookPost) {
     return this.http
       .post<BookPost>(
         'https://reading-tracker-application.herokuapp.com/api/book/add',
-        book,
-        this.authHeader
+        book
       )
       .toPromise();
   }
@@ -36,11 +29,11 @@ export class BookService {
         'https://reading-tracker-application.herokuapp.com/api/book/delete',
         {
           body: { bookId: bookId },
-          headers: {
+          /*headers: {
             'Access-Control-Allow-Origin': '*',
             Authorization:
               'Bearer ' + this.localStorageService.get('access_token'),
-          },
+          },*/
         }
       )
       .toPromise();

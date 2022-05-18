@@ -24,8 +24,7 @@ export class AuthService {
     return this.http
       .post<Auth>(
         'https://reading-tracker-application.herokuapp.com/api/login',
-        auth,
-        this.authHeader
+        auth
       )
       .toPromise();
   }
@@ -33,8 +32,7 @@ export class AuthService {
   logout(): Promise<void> {
     return this.http
       .delete<void>(
-        'https://reading-tracker-application.herokuapp.com/api/logout',
-        this.authHeader
+        'https://reading-tracker-application.herokuapp.com/api/logout'
       )
       .toPromise();
   }

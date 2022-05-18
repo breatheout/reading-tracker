@@ -14,16 +14,15 @@ import { LocalStorageService } from './local-storage.service';
 export class AuthInterceptorService implements HttpInterceptor {
   access_token: string | null;
 
-  constructor(private localStorageService: LocalStorageService) {
-    this.access_token = this.localStorageService.get('access_token');
-  }
+  constructor(private localStorageService: LocalStorageService) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.access_token = this.localStorageService.get('access_token');
-    if (this.access_token) {
+    // Exclude requests to the Google BOoks API
+    if (this.access_token && !req.url.includes('google')) {
       req = req.clone({
         setHeaders: {
           'Content-Type': 'application/json; charset=utf-8',

@@ -8,17 +8,17 @@ import { Book } from '../Models/book.model';
   providedIn: 'root',
 })
 export class GoogleBooksService {
-  private api_url = 'https://www.googleapis.com/books/v1/volumes';
+  private googleBooks = 'https://www.googleapis.com/books/v1/volumes';
 
   constructor(private http: HttpClient) {}
 
   search(query: string): Observable<Book[]> {
     return this.http
-      .get<{ items: Book[] }>(`${this.api_url}?q=${query}`)
+      .get<{ items: Book[] }>(`${this.googleBooks}?q=${query}`)
       .pipe(map((books) => books.items || []));
   }
 
   getById(volumeId: string): Observable<Book> {
-    return this.http.get<Book>(`${this.api_url}/${volumeId}`);
+    return this.http.get<Book>(`${this.googleBooks}/${volumeId}`);
   }
 }
