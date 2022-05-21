@@ -30,11 +30,13 @@ export class AuthGuard implements CanActivate {
     if (access_token) {
       // logged in so return true
       resp = this.authService.verify();
-      return resp;
+      if (resp == true) {
+        return resp;
+      }
     }
 
     this.router.navigate(['/login']);
-
+    console.log('login');
     return false;
   }
 }

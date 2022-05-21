@@ -425,12 +425,16 @@ app.post("/api/token", async (req, res) => {
   });
 });
 
-app.post("/api/verify", authenticateToken, (req, res) => {
-  if (req.user.username) {
+app.post("/api/verify", (req, res) => {
+  /*if (req.user.username) {
     return true;
   } else {
     return false;
-  }
+  }*/
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return false;
+    return true;
+  });
 });
 
 //MIDDLEWARE TO AUTHENTICATE TOKENS AND ALLOW REQUESTS
