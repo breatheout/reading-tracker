@@ -425,7 +425,7 @@ app.post("/api/token", async (req, res) => {
   });
 });
 
-app.post("/api/verify", authenticateToken, async (req, res) => {
+app.post("/api/verify", authenticateToken, (req, res) => {
   if (req.user.username) {
     return true;
   } else {

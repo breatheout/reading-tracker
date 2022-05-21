@@ -26,14 +26,15 @@ export class AuthGuard implements CanActivate {
   ): Promise<boolean | UrlTree> {
     // AQUI HAY QUE IR AL API PARA VER SI EL TOKEN ES VALIDO
     const access_token = this.localStorageService.get('access_token');
+    let resp: any;
     if (access_token) {
-      const resp = await this.authService.verify();
-      if (resp == true) {
-        return resp;
-      }
+      // logged in so return true
+      resp = this.authService.verify();
+      return resp;
     }
 
     this.router.navigate(['/login']);
+
     return false;
   }
 }
