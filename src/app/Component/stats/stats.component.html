@@ -1,11 +1,88 @@
-<div class="container">
+<!--ALERT BAR-->
+<div
+  *ngIf="isLoaded == true && userLibrary == undefined"
+  class="alert alert-warning"
+  class="alert alert-warning alert-dismissible fade show"
+  role="alert"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="currentColor"
+    class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
+    viewBox="0 0 16 16"
+    role="img"
+    aria-label="Warning:"
+  >
+    <path
+      d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+    />
+  </svg>
+  <strong>There are no books in your shelves!</strong> You can add books by
+  navigating to Search in the navigation bar and typing the title of a book.
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<div class="container text-center" *ngIf="userLibrary != undefined">
   <div class="container my-3 pt-2 background-container">
     <h1 class="h4 mb-0">Your personal book stats</h1>
   </div>
+  <div class="alert alert-info" role="alert" *ngIf="userLibrary != undefined">
+    <p>
+      You have read a total of
+      <span class="badge bg-dark">{{ totalBooks }}</span> books since you
+      started tracking. That's
+      <span class="badge bg-dark">{{ totalPages }}</span> pages!
+    </p>
+    <p>
+      In <span>{{ currentYear }}</span> you read
+      <span class="badge bg-dark">{{ totalAnnualBooks }}</span> books and
+      <span class="badge bg-dark">{{ annualPages }}</span> pages!
+    </p>
+  </div>
+  <div class="mx-auto my-5">
+    <h1 class="h4">The longest book you have read is:</h1>
+    <img class="thumbnail" src="{{ largestBook.cover }}" />
+  </div>
+  <div class="mx-auto my-5">
+    <h1 class="h4">The shortest book you have read is:</h1>
+    <img class="thumbnail" src="{{ shortestBook.cover }}" />
+  </div>
+  <form action="" class="btn-group-vertical mx-auto my-5">
+    <button
+      class="btn btn-dark"
+      type="submit"
+      (click)="changeDisplay()"
+      [disabled]="displayTopGenres"
+    >
+      TOP 5 Genres
+    </button>
+    <button
+      class="btn btn-dark"
+      type="submit"
+      (click)="changeDisplay()"
+      [disabled]="displayTopAuthors"
+    >
+      TOP 5 Authors
+    </button>
+  </form>
   <app-chart
-    class="background-container-stats mb-3"
+    *ngIf="displayTopGenres"
     #chartchild
+    [type]="barChart"
     [top5]="top5Genres"
-    [salesData]="salesData"
+    [chartData]="chartDataGenres"
+  ></app-chart>
+  <app-chart
+    *ngIf="displayTopAuthors"
+    #chartchild
+    [type]="barChart"
+    [top5]="top5Authors"
+    [chartData]="chartDataAuthors"
   ></app-chart>
 </div>

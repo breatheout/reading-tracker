@@ -1,4 +1,3 @@
-import { TypeofExpr } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartType, ChartOptions, ChartData } from 'chart.js';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
@@ -10,17 +9,17 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./chart.component.css'],
 })
 export class ChartComponent implements OnInit {
-  @Input() top5 = '';
-
-  @Input() salesData: ChartData<'line'>;
+  @Input() top5: string | string[] = '';
+  @Input() type: string = '';
+  @Input() chartData: ChartData<'line'>;
 
   chartOptions: ChartOptions = {
     responsive: true,
     plugins: {
-      title: {
+      /*title: {
         display: true,
         text: 'Your book stats',
-      },
+      },*/
     },
   };
 
