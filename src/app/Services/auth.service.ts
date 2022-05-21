@@ -37,11 +37,11 @@ export class AuthService {
       .toPromise();
   }
 
-  verify(): Promise<boolean> {
+  verify(token: string): Promise<boolean> {
     return this.http
       .post<boolean>(
         'https://reading-tracker-application.herokuapp.com/api/verify',
-        {}
+        token
       )
       .toPromise();
   }

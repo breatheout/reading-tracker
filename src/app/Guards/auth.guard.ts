@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
     let resp: any;
     if (access_token) {
       // logged in so return true
-      resp = this.authService.verify();
+      resp = this.authService.verify(access_token);
       if (resp == true) {
         return resp;
       }

@@ -431,6 +431,7 @@ app.post("/api/verify", (req, res) => {
   } else {
     return false;
   }*/
+  const token = req.body.type;
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) return false;
     return true;
