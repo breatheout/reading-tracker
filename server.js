@@ -425,6 +425,14 @@ app.post("/api/token", async (req, res) => {
   });
 });
 
+app.post("/api/verify", authenticateToken, async (req, res) => {
+  if (req.user.username) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
 //MIDDLEWARE TO AUTHENTICATE TOKENS AND ALLOW REQUESTS
 function authenticateToken(req, res, next) {
   console.log("ha entrado en la verificacion");

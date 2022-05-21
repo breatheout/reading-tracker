@@ -36,4 +36,13 @@ export class AuthService {
       )
       .toPromise();
   }
+
+  verify(): Promise<boolean> {
+    return this.http
+      .post<boolean>(
+        'https://reading-tracker-application.herokuapp.com/api/verify',
+        {}
+      )
+      .toPromise();
+  }
 }

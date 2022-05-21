@@ -7,6 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from '../Services/auth.service';
 import { LocalStorageService } from '../Services/local-storage.service';
 
 @Injectable({
@@ -15,26 +16,24 @@ import { LocalStorageService } from '../Services/local-storage.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private authService: AuthService
   ) {}
 
-  canActivate(
+  async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  ): Promise<boolean | UrlTree> {
     // AQUI HAY QUE IR AL API PARA VER SI EL TOKEN ES VALIDO
     const access_token = this.localStorageService.get('access_token');
     if (access_token) {
-      // logged in so return true
-      return true;
+      const resp = await this.authService.verify();
+      if (resp == true) {
+        return resp;
+      }
     }
 
     this.router.navigate(['/login']);
-
     return false;
   }
 }
