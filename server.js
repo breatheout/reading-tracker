@@ -433,7 +433,7 @@ app.get("/api/verify", (req, res) => {
   }*/
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  let response = { authenticated: false };
+  let response = from({ authenticated: false });
   console.log(response);
   console.log(token);
   if (token == null) {
@@ -441,10 +441,10 @@ app.get("/api/verify", (req, res) => {
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log("entra");
-    response = { authenticated: false };
+    response = from({ authenticated: false });
     if (err) return response;
-    console.log("return true?");
-    response = { authenticated: true };
+    console.log("return true");
+    response = from({ authenticated: true });
     return response;
   });
 });
