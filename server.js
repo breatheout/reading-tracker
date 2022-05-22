@@ -431,6 +431,7 @@ app.get("/api/verify", (req, res) => {
   } else {
     return false;
   }*/
+  /*
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   let response = from({ authenticated: false });
@@ -446,6 +447,19 @@ app.get("/api/verify", (req, res) => {
     console.log("return true");
     response = from({ authenticated: true });
     return response;
+  });
+  */
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  console.log(token);
+  if (token == null) {
+    return false;
+  }
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    console.log("entra");
+    if (err) return false;
+    console.log("return true");
+    return true;
   });
 });
 

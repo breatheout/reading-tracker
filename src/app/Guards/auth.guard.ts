@@ -23,12 +23,12 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean | any> | boolean | UrlTree {
+  ): Observable<boolean | any> | boolean | UrlTree | any {
     console.log('entra en la funcion');
     let resp = this.authService.verify().pipe(
-      map((response: { authenticated: boolean }) => {
-        console.log(response.authenticated);
-        if (response.authenticated) {
+      map((response) => {
+        console.log(response);
+        if (response == true) {
           return true;
         }
         this.router.navigate(['/login']);
