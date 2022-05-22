@@ -425,14 +425,14 @@ app.post("/api/token", async (req, res) => {
   });
 });
 
-app.post("/api/verify", async (req, res) => {
+app.get("/api/verify", authenticateToken, (req, res) => {
   /*if (req.user.username) {
     return true;
   } else {
     return false;
   }*/
-  console.log(req.body.type);
-  const token = req.body.type;
+  console.log(req.body.username);
+  const token = req.body.username;
   console.log(token);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log("entra");

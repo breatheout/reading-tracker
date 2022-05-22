@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Auth } from '../Models/auth.model';
 import { LocalStorageService } from './local-storage.service';
 
@@ -37,12 +38,9 @@ export class AuthService {
       .toPromise();
   }
 
-  verify(token: string): Promise<boolean> {
-    return this.http
-      .post<boolean>(
-        'https://reading-tracker-application.herokuapp.com/api/verify',
-        token
-      )
-      .toPromise();
+  verify(): Observable<any> {
+    return this.http.get(
+      'https://reading-tracker-application.herokuapp.com/api/verify'
+    );
   }
 }

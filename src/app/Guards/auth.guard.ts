@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { AuthService } from '../Services/auth.service';
 import { LocalStorageService } from '../Services/local-storage.service';
 
@@ -20,23 +20,22 @@ export class AuthGuard implements CanActivate {
     private authService: AuthService
   ) {}
 
-  async canActivate(
+  canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<boolean | UrlTree> {
-    // AQUI HAY QUE IR AL API PARA VER SI EL TOKEN ES VALIDO
-    const access_token = this.localStorageService.get('access_token');
-    let resp: any;
-    if (access_token) {
-      // logged in so return true
-      resp = this.authService.verify(access_token);
-      if (resp == true) {
-        return resp;
-      }
-    }
-
-    this.router.navigate(['/login']);
-    console.log('login');
-    return false;
+  ): Observable<boolean> | Observable<any> {
+    return this.authService.verify().pipe(
+      map((response: { authenticated: boolean }) => {
+        if (response.authenticated) {
+          return true;
+        }
+        this.router.navigate(['/login']);
+        return false;
+      }),
+      catchError((error) => {
+        this.router.navigate(['/login']);
+        return of(false);
+      })
+    );
   }
 }
