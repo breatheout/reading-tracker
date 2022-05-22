@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ChartType, ChartOptions, ChartData } from 'chart.js';
+import { BookPost } from 'src/app/Models/bookpost.model';
 
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { UserService } from 'src/app/Services/user.service';
@@ -17,8 +18,6 @@ export class StatsComponent implements OnInit {
   top5Authors: string[];
   top5AuthorsData: number[];
 
-  isLoaded: boolean = false;
-
   currentYear: string = new Date().getFullYear().toString();
 
   totalPages: number;
@@ -31,7 +30,7 @@ export class StatsComponent implements OnInit {
   barChart: string = 'bar';
   pieChart: string = 'pie';
 
-  userLibrary: any;
+  userLibrary: Array<any>;
 
   chartDataGenres: ChartData<'bar'>;
   chartDataAuthors: ChartData<'pie'>;
@@ -117,7 +116,6 @@ export class StatsComponent implements OnInit {
         },
       ],
     };
-    this.isLoaded = true;
   }
 
   async getLibrary(): Promise<void> {

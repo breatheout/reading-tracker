@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Book } from 'src/app/Models/book.model';
+import { BookPost } from 'src/app/Models/bookpost.model';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
@@ -8,7 +10,7 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class HomeComponent implements OnInit {
   message: string;
-  userLibrary: any;
+  userLibrary: Array<BookPost>;
   readingBooks: Array<object>;
   wantBooks: Array<object>;
   readBooks: Array<object>;

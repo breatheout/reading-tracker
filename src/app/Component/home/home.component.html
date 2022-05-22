@@ -10,7 +10,7 @@
 
 <!--ALERT BAR-->
 <div
-  *ngIf="finishedLoading && !userLibrary"
+  *ngIf="finishedLoading && !userLibrary.length"
   class="alert alert-warning"
   class="alert alert-warning alert-dismissible fade show"
   role="alert"
@@ -54,39 +54,18 @@
     </div>
   </div>
 
-  <!--READING-->
-  <div class="container mt-5 text-center">
-    <h2 class="background-container">
-      <a [routerLink]="['/shelf/reading']" class="header-link"
-        >Currently reading</a
-      >
-    </h2>
-    <div
-      class="d-flex flex-row flex-wrap justify-content-center border-container"
-    >
-      <div *ngFor="let book of readingBooks; i as index">
-        <a [routerLink]="['/book/' + book.bookId]">
-          <img
-            class="m-2 img-fluid thumbnail"
-            src="{{ book.cover }}"
-            alt="book cover"
-        /></a>
-      </div>
-    </div>
-  </div>
-
-  <!--WANT TO READ-->
-  <div class="container mt-5 text-center">
-    <h2 class="background-container">
-      <a [routerLink]="['/shelf/want-to-read']" class="header-link"
-        >Want to read</a
-      >
-    </h2>
-    <div class="border-container">
+  <div *ngIf="userLibrary.length">
+    <!--READING-->
+    <div *ngIf="readingBooks.length" class="container mt-5 text-center">
+      <h2 class="background-container">
+        <a [routerLink]="['/shelf/reading']" class="header-link"
+          >Currently reading</a
+        >
+      </h2>
       <div
-        class="d-flex flex-row flex-wrap justify-content-center w-100 my-auto"
+        class="d-flex flex-row flex-wrap justify-content-center border-container"
       >
-        <div *ngFor="let book of wantBooks; i as index" class="">
+        <div *ngFor="let book of readingBooks; i as index">
           <a [routerLink]="['/book/' + book.bookId]">
             <img
               class="m-2 img-fluid thumbnail"
@@ -95,32 +74,57 @@
           /></a>
         </div>
       </div>
-      <div class="justify-content-center">
-        <a [routerLink]="['/book/want-to-read']" class="link-dark">see more</a>
-      </div>
     </div>
-  </div>
 
-  <!--BOOKS READ-->
-  <div class="container mt-5 text-center">
-    <h2 class="background-container">
-      <a [routerLink]="['/shelf/read']" class="header-link">Books read</a>
-    </h2>
-    <div class="border-container">
-      <div
-        class="d-flex flex-row flex-wrap justify-content-center w-100 my-auto"
-      >
-        <div *ngFor="let book of readBooks; i as index" class="">
-          <a [routerLink]="['/book/' + book.bookId]">
-            <img
-              class="m-2 img-fluid thumbnail"
-              src="{{ book.cover }}"
-              alt="book cover"
-          /></a>
+    <!--WANT TO READ-->
+    <div *ngIf="wantBooks.length" class="container mt-5 text-center">
+      <h2 class="background-container">
+        <a [routerLink]="['/shelf/want-to-read']" class="header-link"
+          >Want to read</a
+        >
+      </h2>
+      <div class="border-container">
+        <div
+          class="d-flex flex-row flex-wrap justify-content-center w-100 my-auto"
+        >
+          <div *ngFor="let book of wantBooks; i as index" class="">
+            <a [routerLink]="['/book/' + book.bookId]">
+              <img
+                class="m-2 img-fluid thumbnail"
+                src="{{ book.cover }}"
+                alt="book cover"
+            /></a>
+          </div>
+        </div>
+        <div class="justify-content-center">
+          <a [routerLink]="['/book/want-to-read']" class="link-dark"
+            >see more</a
+          >
         </div>
       </div>
-      <div class="justify-content-center">
-        <a [routerLink]="['/book/read']" class="link-dark">see more</a>
+    </div>
+
+    <!--BOOKS READ-->
+    <div *ngIf="readBooks.length" class="container mt-5 text-center">
+      <h2 class="background-container">
+        <a [routerLink]="['/shelf/read']" class="header-link">Books read</a>
+      </h2>
+      <div class="border-container">
+        <div
+          class="d-flex flex-row flex-wrap justify-content-center w-100 my-auto"
+        >
+          <div *ngFor="let book of readBooks; i as index" class="">
+            <a [routerLink]="['/book/' + book.bookId]">
+              <img
+                class="m-2 img-fluid thumbnail"
+                src="{{ book.cover }}"
+                alt="book cover"
+            /></a>
+          </div>
+        </div>
+        <div class="justify-content-center">
+          <a [routerLink]="['/book/read']" class="link-dark">see more</a>
+        </div>
       </div>
     </div>
   </div>

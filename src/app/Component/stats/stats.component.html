@@ -1,6 +1,6 @@
 <!--ALERT BAR-->
 <div
-  *ngIf="isLoaded == true && userLibrary == undefined"
+  *ngIf="!userLibrary.length"
   class="alert alert-warning"
   class="alert alert-warning alert-dismissible fade show"
   role="alert"
@@ -28,7 +28,7 @@
     aria-label="Close"
   ></button>
 </div>
-<div class="container text-center" *ngIf="userLibrary != undefined">
+<div class="container text-center" *ngIf="userLibrary.length">
   <div class="container my-3 pt-2 background-container">
     <h1 class="h4 mb-0">Your personal book stats</h1>
   </div>
