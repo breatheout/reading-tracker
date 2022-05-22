@@ -38,13 +38,7 @@ export class AuthService {
       .toPromise();
   }
 
-  /*verify(): any {
-    return this.http
-      .get('https://reading-tracker-application.herokuapp.com/api/verify')
-      .toPromise();
-  }*/
-
-  verify(): any {
+  verify(): Observable<object> {
     return this.http.get(
       'https://reading-tracker-application.herokuapp.com/api/verify'
     );

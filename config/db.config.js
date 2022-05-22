@@ -53,11 +53,11 @@ module.exports = sequelize;*/
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
-  "bep2lbvw098rd9pn",
-  "g0r1jib4iaut30td",
-  "xoy9fk9k619cppml",
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
-    host: "clwxydcjair55xn0.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+    host: process.env.DB_HOST,
     dialect: "mysql",
     port: "3306",
   }

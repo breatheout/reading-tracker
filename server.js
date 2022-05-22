@@ -425,6 +425,7 @@ app.post("/api/token", async (req, res) => {
   });
 });
 
+// API VERIFY FOR THE AUTH GUARD
 app.get("/api/verify", (req, res) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -438,18 +439,6 @@ app.get("/api/verify", (req, res) => {
     console.log("return true");
     return res.json({ authenticated: true });
   });
-  /*const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  console.log(token);
-  if (token == null) {
-    return res.json({ ok: false });
-  }
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    console.log("entra");
-    if (err) res.json({ ok: false });
-    console.log("return true");
-    return res.json({ ok: true });
-  });*/
 });
 
 //MIDDLEWARE TO AUTHENTICATE TOKENS AND ALLOW REQUESTS
