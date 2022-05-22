@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthInterceptor } from 'src/app/Interceptors/auth.interceptor';
 import { UserService } from 'src/app/Services/user.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BookService } from 'src/app/Services/book.service';
-import { BehaviorSubject, forkJoin, fromEvent, Observable } from 'rxjs';
-import { StarsComponent } from '../stars/stars.component';
-import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shelf-view',
