@@ -34,7 +34,7 @@ export class UserService {
   updatePassword(passwords: {}): Promise<string> {
     return this.http
       .put<string>(
-        'https://reading-tracker-application.herokuapp.com/api/password',
+        'https://reading-tracker-application.herokuapp.com/api/user/password',
         passwords
       )
       .toPromise();
