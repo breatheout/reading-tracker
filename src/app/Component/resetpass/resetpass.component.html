@@ -32,28 +32,20 @@
     </div>
 
     <div class="col-12">
-      <label for="email" class="form-label">Email</label>
+      <label for="username" class="form-label">Email</label>
       <input
         type="email"
         class="form-control"
         id="email"
-        placeholder="******************"
+        placeholder="name@example.com"
         formControlName="email"
       />
-
-      <div *ngIf="email.errors">
-        <span
-          style="color: red"
-          *ngIf="password.errors && (password.touched || password.dirty)"
-        >
-          <span *ngIf="password.errors.required">Password is required</span>
-          <span *ngIf="password.errors.minlength"
-            >Password must be greater tha 8 characters</span
-          >
-          <span *ngIf="password.errors.maxlength"
-            >Password can be max 16 characters long</span
-          >
-        </span>
+      <div
+        *ngIf="email.errors && (email.touched || email.dirty)"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="email.errors.required">Email is required</div>
+        <div *ngIf="email.errors.pattern">Email not a valid format.</div>
       </div>
     </div>
 

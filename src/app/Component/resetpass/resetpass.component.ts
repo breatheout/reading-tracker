@@ -23,6 +23,7 @@ export class ResetpassComponent implements OnInit {
   username: FormControl;
   email: FormControl;
   form: FormGroup;
+  userService: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +33,7 @@ export class ResetpassComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private router: Router
   ) {
-    this.forgottenUser = new User('', '', '');
+    this.forgottenUser = new User('', '', 'forgottenPassword');
     this.username = new FormControl('', [
       Validators.required,
       Validators.minLength(5),
@@ -52,7 +53,34 @@ export class ResetpassComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  resetPassword(): void {
-    console.log('bla');
+  async resetPassword(): Promise<void> {
+    if (!this.form.invalid) {
+      this.forgottenUser = this.form.value;
+      try {
+        await this.authService.resetPassword(this.forgottenUser);
+        this.resetSuccess();
+      } catch (error: any) {
+        this.resetFail(error);
+      }
+    }
+  }
+
+  private async resetSuccess(): Promise<void> {
+    await this.sharedService.managementToast('formFeedback', true);
+    this.form.reset();
+    this.router.navigateByUrl('home');
+  }
+
+  private async resetFail(error: any): Promise<void> {
+    this.headerMenusService.headerManagement.next({
+      showAuthSection: false,
+      showNoAuthSection: true,
+    });
+    await this.sharedService.errorLog(error.error);
+    await this.sharedService.managementToast(
+      'formFeedback',
+      false,
+      error.error
+    );
   }
 }

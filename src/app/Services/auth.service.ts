@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Auth } from '../Models/auth.model';
+import { User } from '../Models/user.model';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -42,5 +43,14 @@ export class AuthService {
     return this.http.get(
       'https://reading-tracker-application.herokuapp.com/api/verify'
     );
+  }
+
+  resetPassword(user: User): Promise<User> {
+    return this.http
+      .post<User>(
+        'https://reading-tracker-application.herokuapp.com/api/reset',
+        user
+      )
+      .toPromise();
   }
 }
