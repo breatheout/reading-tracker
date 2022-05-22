@@ -89,4 +89,8 @@ export class LoginComponent implements OnInit {
       error.error
     );
   }
+
+  goToResetPass(): void {
+    this.router.navigateByUrl('reset-password');
+  }
 }

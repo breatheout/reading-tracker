@@ -44,6 +44,7 @@
     "mysql2": "^2.3.3",
     "ng2-charts": "^3.0.10",
     "ngx-infinite-scroll": "^13.0.2",
+    "nodemailer": "^6.7.5",
     "path": "^0.12.7",
     "rxjs": "~7.5.0",
     "sequelize": "^6.19.0",

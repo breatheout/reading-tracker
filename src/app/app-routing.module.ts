@@ -30,6 +30,10 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   {
+    path: 'reset-password',
+    component: RegisterComponent,
+  },
+  {
     path: 'search',
     component: SearchBookComponent,
     canActivate: [AuthGuard],

@@ -18,6 +18,8 @@ const bcrypt = require("bcrypt");
 const cors = require("cors");
 const Users = require("./sequelize-models/Users");
 const Books = require("./sequelize-models/Books");
+const { hash } = require("bcrypt");
+const e = require("express");
 const CsvParser = require("json2csv").Parser;
 
 db.sync();
@@ -29,6 +31,61 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  service: "hotmail",
+  auth: {
+    user: "reading-tracker-app@outlook.com",
+    pass: "reading12345",
+  },
+});
+
+// PASSWORD RESET
+app.post("/api/reset", async (req, res) => {
+  const password = require("crypto").randomBytes(8).toString("hex");
+  const hashedPassword = await bcrypt.hash(password, 10);
+  console.log("New password generated:" + password);
+  const query = await Users.findAll({
+    where: {
+      username: req.body.username,
+      email: req.body.email,
+    },
+  });
+  if (query.length) {
+    await Users.update(
+      {
+        password: hashedPassword,
+      },
+      {
+        where: {
+          username: req.body.username,
+          email: req.body.email,
+        },
+      }
+    );
+    const options = {
+      from: "reading-tracker-app@outlook.com",
+      to: req.body.email,
+      subject: "Password reset | Reading Tracker",
+      text:
+        "You have asked to reset your password. This is your new password: " +
+        password,
+    };
+    transporter.sendMail(options, function (err, info) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+      console.log("Sent:" + info.response);
+      return res.json(
+        "Your password has been reset. Please check your email account."
+      );
+    });
+  } else {
+    return res.status(403).send();
+  }
+});
 
 //REGISTER USER
 app.post("/api/register", async (req, res) => {

@@ -2,8 +2,12 @@
   <p id="formFeedback"></p>
 </div>
 
-<div class="container d-flex justify-content-center">
-  <form class="row g-3" [formGroup]="form" (ngSubmit)="login()">
+<div class="container d-flex justify-content-center mx-auto my-5">
+  <form class="row g-3 w-75" [formGroup]="form" (ngSubmit)="resetPassword()">
+    <div class="col-12">
+      Please type in your username and email address to receive an email with
+      your new password.
+    </div>
     <div class="col-12">
       <label for="username" class="form-label">Username</label>
       <input
@@ -28,16 +32,16 @@
     </div>
 
     <div class="col-12">
-      <label for="password" class="form-label">Password</label>
+      <label for="email" class="form-label">Email</label>
       <input
-        type="password"
+        type="email"
         class="form-control"
-        id="password"
+        id="email"
         placeholder="******************"
-        formControlName="password"
+        formControlName="email"
       />
 
-      <div *ngIf="password.errors">
+      <div *ngIf="email.errors">
         <span
           style="color: red"
           *ngIf="password.errors && (password.touched || password.dirty)"
@@ -54,12 +58,7 @@
     </div>
 
     <div class="col-12 d-flex justify-content-center">
-      <button type="submit" class="btn btn-dark">Log in</button>
+      <button type="submit" class="btn btn-dark">Reset password</button>
     </div>
   </form>
-</div>
-<div class="container d-flex justify-content-center mx-auto my-5">
-  <button type="button" class="btn btn-link" (click)="goToResetPass()">
-    Forgot your password?
-  </button>
 </div>

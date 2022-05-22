@@ -20,6 +20,7 @@ import { ChartComponent } from './Component/chart/chart.component';
 import { RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { StarsComponent } from './Component/stars/stars.component';
+import { ResetpassComponent } from './Component/resetpass/resetpass.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { StarsComponent } from './Component/stars/stars.component';
     StatsComponent,
     ChartComponent,
     StarsComponent,
+    ResetpassComponent,
   ],
   exports: [ChartComponent],
   imports: [
