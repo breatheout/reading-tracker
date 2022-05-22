@@ -426,30 +426,19 @@ app.post("/api/token", async (req, res) => {
 });
 
 app.get("/api/verify", (req, res) => {
-  /*if (req.user.username) {
-    return true;
-  } else {
-    return false;
-  }*/
-  /*
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  let response = from({ authenticated: false });
-  console.log(response);
   console.log(token);
   if (token == null) {
-    return response;
+    return res.json({ authenticated: false });
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log("entra");
-    response = from({ authenticated: false });
-    if (err) return response;
+    if (err) return res.json({ authenticated: false });
     console.log("return true");
-    response = from({ authenticated: true });
-    return response;
+    return res.json({ authenticated: true });
   });
-  */
-  const authHeader = req.headers["authorization"];
+  /*const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   console.log(token);
   if (token == null) {
@@ -460,7 +449,7 @@ app.get("/api/verify", (req, res) => {
     if (err) res.json({ ok: false });
     console.log("return true");
     return res.json({ ok: true });
-  });
+  });*/
 });
 
 //MIDDLEWARE TO AUTHENTICATE TOKENS AND ALLOW REQUESTS
