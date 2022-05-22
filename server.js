@@ -425,7 +425,7 @@ app.post("/api/token", async (req, res) => {
   });
 });
 
-app.get("/api/verify", (req, res) => {
+app.get("/api/verify", (req, response) => {
   /*if (req.user.username) {
     return true;
   } else {
@@ -433,14 +433,15 @@ app.get("/api/verify", (req, res) => {
   }*/
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
+  response = { authenticated: false };
   if (token == null) {
-    return { authenticated: false };
+    return response;
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    console.log("entra");
-    if (err) return { authenticated: false };
-    console.log("no return true");
-    return { authenticated: true };
+    response = { authenticated: false };
+    if (err) return response;
+    response = { authenticated: true };
+    return response;
   });
 });
 
