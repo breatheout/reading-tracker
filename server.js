@@ -18,9 +18,15 @@ const bcrypt = require("bcrypt");
 const cors = require("cors");
 const Users = require("./sequelize-models/Users");
 const Books = require("./sequelize-models/Books");
-const { hash } = require("bcrypt");
-const e = require("express");
 const CsvParser = require("json2csv").Parser;
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  service: "hotmail",
+  auth: {
+    user: process.env.NODEMAILER_MAIL,
+    pass: process.env.NODEMAILER_PASSWORD,
+  },
+});
 
 db.sync();
 //CHANGE ORIGIN WHEN FINISHED TESTING
@@ -31,15 +37,6 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-
-const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({
-  service: "hotmail",
-  auth: {
-    user: "reading-tracker-app@outlook.com",
-    pass: "reading12345",
-  },
-});
 
 // PASSWORD RESET
 app.post("/api/reset", async (req, res) => {
