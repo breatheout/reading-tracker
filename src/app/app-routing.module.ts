@@ -9,6 +9,7 @@ import { BookViewComponent } from './Component/book-view/book-view.component';
 import { ShelfViewComponent } from './Component/shelf-view/shelf-view.component';
 import { ProfileComponent } from './Component/profile/profile.component';
 import { StatsComponent } from './Component/stats/stats.component';
+import { ResetpassComponent } from './Component/resetpass/resetpass.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'reset-password',
-    component: RegisterComponent,
+    component: ResetpassComponent,
   },
   {
     path: 'search',
