@@ -25,21 +25,14 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | any> | boolean | UrlTree | any {
     console.log('entra en la funcion');
-    let resp = this.authService.verify().pipe(
-      map((response) => {
-        console.log(response);
-        if (response == true) {
-          return true;
-        }
-        this.router.navigate(['/login']);
-        return false;
-      }),
-      catchError((error) => {
-        this.router.navigate(['/login']);
-        return of(false);
-      })
-    );
+    let resp = this.authService.verify();
     console.log(resp);
-    return resp;
+    if (resp == true) {
+      console.log('entra en el true');
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
   }
 }
