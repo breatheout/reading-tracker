@@ -453,13 +453,13 @@ app.get("/api/verify", (req, res) => {
   const token = authHeader && authHeader.split(" ")[1];
   console.log(token);
   if (token == null) {
-    return false;
+    return res.json({ ok: false });
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log("entra");
-    if (err) return false;
+    if (err) res.json({ ok: false });
     console.log("return true");
-    return true;
+    return res.json({ ok: true });
   });
 });
 

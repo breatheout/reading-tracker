@@ -39,8 +39,8 @@ export class AuthService {
   }
 
   verify(): any {
-    return this.http.get(
-      'https://reading-tracker-application.herokuapp.com/api/verify'
-    );
+    return this.http
+      .get('https://reading-tracker-application.herokuapp.com/api/verify')
+      .toPromise();
   }
 }
