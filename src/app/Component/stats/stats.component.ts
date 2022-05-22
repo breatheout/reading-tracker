@@ -120,7 +120,7 @@ export class StatsComponent implements OnInit {
 
   async getLibrary(): Promise<void> {
     try {
-      this.userLibrary = await this.userService.getUserLibrary();
+      this.userLibrary = await this.userService.getUserLibrary('read');
     } catch {
       console.log('Error getting library');
     }
