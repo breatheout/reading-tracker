@@ -23,7 +23,6 @@ export class ResetpassComponent implements OnInit {
   username: FormControl;
   email: FormControl;
   form: FormGroup;
-  userService: any;
 
   constructor(
     private formBuilder: FormBuilder,

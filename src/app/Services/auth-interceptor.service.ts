@@ -21,7 +21,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.access_token = this.localStorageService.get('access_token');
-    // Exclude requests to the Google BOoks API
+    // Exclude requests to the Google Books API
     if (this.access_token && !req.url.includes('google')) {
       req = req.clone({
         setHeaders: {

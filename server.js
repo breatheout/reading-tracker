@@ -21,6 +21,7 @@ const Books = require("./sequelize-models/Books");
 const CsvParser = require("json2csv").Parser;
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
+  // Change service if not using outlook account or hotmail, nodemailer does not work well with gmail
   service: "hotmail",
   auth: {
     user: process.env.NODEMAILER_MAIL,
@@ -405,6 +406,7 @@ app.post("/api/user/library", authenticateToken, async (req, res) => {
   res.json(query);
 });
 
+// NOT USED IN FINAL VERSION
 //GET USER LIBRARY + GET BY TYPE - JWT - OBSERVABLES
 app.post(
   "/api/observable/user/library/:pagenum/:pagesize",
@@ -462,6 +464,7 @@ app.delete("/api/logout", authenticateToken, async (req, res) => {
   res.sendStatus(204);
 });
 
+// NOT USED IN FINAL VERSION
 //GENERATE ACCESS TOKENS
 app.post("/api/token", async (req, res) => {
   const refresh_token = req.body.refresh_token;
@@ -497,19 +500,13 @@ app.get("/api/verify", (req, res) => {
 
 //MIDDLEWARE TO AUTHENTICATE TOKENS AND ALLOW REQUESTS
 function authenticateToken(req, res, next) {
-  console.log("ha entrado en la verificacion");
-  console.log(req.headers["authorization"]);
   const authHeader = req.headers["authorization"];
-  console.log(req.headers);
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) {
-    console.log("ha entrado en token null");
     return res.sendStatus(401);
   }
-
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
-    console.log("ha entrado en la verificacion final");
     req.user = user;
     next();
   });
