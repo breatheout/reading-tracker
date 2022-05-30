@@ -1,26 +1,14 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Auth } from '../Models/auth.model';
 import { User } from '../Models/user.model';
-import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private authHeader: object;
-
-  constructor(
-    private http: HttpClient,
-    private localStorageService: LocalStorageService
-  ) {
-    this.authHeader = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.localStorageService.get('access_token'),
-      }),
-    };
-  }
+  constructor(private http: HttpClient) {}
 
   login(auth: Auth): Promise<Auth> {
     return this.http

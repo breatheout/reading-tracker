@@ -1,18 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BookPost } from '../Models/bookpost.model';
-import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookService {
-  private authHeader: object;
-
-  constructor(
-    private http: HttpClient,
-    private localStorageService: LocalStorageService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   addBook(book: BookPost) {
     return this.http
@@ -29,11 +23,6 @@ export class BookService {
         'https://reading-tracker-application.herokuapp.com/api/book/delete',
         {
           body: { bookId: bookId },
-          /*headers: {
-            'Access-Control-Allow-Origin': '*',
-            Authorization:
-              'Bearer ' + this.localStorageService.get('access_token'),
-          },*/
         }
       )
       .toPromise();

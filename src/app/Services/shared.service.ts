@@ -32,7 +32,6 @@ export class SharedService {
     this.validRequest = validRequest;
     this.error = error;
     if (this.toastMsg) {
-      //Refactor: Extract Method
       this.processToast();
       await this.wait(2500);
       this.toastMsg.className = this.toastMsg.className.replace('show', '');
@@ -41,10 +40,8 @@ export class SharedService {
 
   private processToast(): void {
     if (this.validRequest) {
-      //Refactor: Extract Method
       this.showMessage('show requestOk', 'Info submitted successfully.');
     } else {
-      //Refactor: Extract Method
       this.showMessage('show requestKo', this.makeErrorMessage());
     }
   }

@@ -1,18 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../Models/user.model';
-import { LocalStorageService } from './local-storage.service';
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private url: string;
-  private controller: string;
   private httpDownloadOptions: any;
 
   constructor(private http: HttpClient) {
-    this.controller = 'user';
-    this.url = 'http://localhost:3000/api/' + this.controller;
     this.httpDownloadOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
