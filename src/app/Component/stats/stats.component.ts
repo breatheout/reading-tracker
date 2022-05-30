@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ChartType, ChartOptions, ChartData } from 'chart.js';
-import { BookPost } from 'src/app/Models/bookpost.model';
-
-import { LocalStorageService } from 'src/app/Services/local-storage.service';
+import { ChartData } from 'chart.js';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
@@ -219,29 +216,23 @@ export class StatsComponent implements OnInit {
     let overallResult: number = 0;
     let annualResult: number = 0;
     let largest: number = this.userLibrary[0].pageCount;
-    console.log(this.userLibrary[0]);
     let largestBook = this.userLibrary[0];
     let shortest: number = this.userLibrary[0].pageCount;
     let shortestBook = this.userLibrary[0];
 
     for (var i = 0; i < this.userLibrary.length; i++) {
       if ((this.userLibrary[i].shelf = 'read')) {
-        console.log('1 if');
         this.totalBooks++;
         overallResult += Number(this.userLibrary[i].pageCount);
         if (this.userLibrary[i].dateFinished.includes(this.currentYear)) {
-          console.log('2 if');
           annualResult += Number(this.userLibrary[i].pageCount);
           this.totalAnnualBooks++;
         }
         if (largest < this.userLibrary[i].pageCount) {
-          console.log('3 if');
           largest = this.userLibrary[i].pageCount;
           largestBook = this.userLibrary[i];
-          console.log(largest);
         }
         if (shortest > this.userLibrary[i].pageCount) {
-          console.log('4 if');
           shortest = this.userLibrary[i].pageCount;
           shortestBook = this.userLibrary[i];
         }
