@@ -11,6 +11,8 @@ import { LocalStorageService } from 'src/app/Services/local-storage.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  user: string = '';
+
   showAuthSection: boolean;
   showNoAuthSection: boolean;
 
@@ -33,6 +35,8 @@ export class HeaderComponent implements OnInit {
         }
       }
     );
+    this.user = this.localStorageService.get('user_id');
+    console.log(this.user);
   }
 
   home(): void {

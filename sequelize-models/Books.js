@@ -5,7 +5,6 @@ const Books = sequelize.define("Books", {
   bookId: {
     type: Sequelize.STRING(25),
     allowNull: false,
-    primaryKey: true,
   },
   shelf: Sequelize.STRING(12),
   title: Sequelize.STRING,

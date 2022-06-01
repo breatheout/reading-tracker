@@ -37,16 +37,16 @@
           <a class="nav-link" [routerLink]="['/account']">Account</a>
         </li>
         <div *ngIf="showNoAuthSection">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="user == null">
             <a class="nav-link" [routerLink]="['/register']">Register</a>
           </li>
         </div>
         <div *ngIf="showNoAuthSection">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="user == null">
             <a class="nav-link" [routerLink]="['/login']">Login</a>
           </li>
         </div>
-        <li class="nav-item d-flex">
+        <li class="nav-item d-flex" *ngIf="user != null">
           <button
             type="button"
             class="btn btn-link link-unset"

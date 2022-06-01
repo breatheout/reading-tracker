@@ -74,7 +74,9 @@ export class LoginComponent implements OnInit {
       showAuthSection: true,
       showNoAuthSection: false,
     });
-    this.router.navigateByUrl('home');
+    this.router.navigateByUrl('home').then(() => {
+      window.location.reload();
+    });
   }
 
   private async loginFail(error: any): Promise<void> {
