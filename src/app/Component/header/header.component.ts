@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit {
       }
     );
     this.user = this.localStorageService.get('user_id');
-    console.log(this.user);
   }
 
   home(): void {

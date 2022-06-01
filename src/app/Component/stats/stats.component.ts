@@ -129,7 +129,11 @@ export class StatsComponent implements OnInit {
     // Create a single array with all the genres
     for (const book of this.userLibrary) {
       // Filter tag 'general' out
-      if (book.shelf == 'read' && !book.genre.includes('general')) {
+      if (
+        book.shelf == 'read' &&
+        book.genre &&
+        !book.genre.includes('general')
+      ) {
         $.map(book.genre.split('"'), function (substr, i: number) {
           return i % 2 ? result.push(substr) : null;
         });
