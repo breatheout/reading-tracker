@@ -224,7 +224,10 @@ export class StatsComponent implements OnInit {
       if ((this.userLibrary[i].shelf = 'read')) {
         this.totalBooks++;
         overallResult += Number(this.userLibrary[i].pageCount);
-        if (this.userLibrary[i].dateFinished.includes(this.currentYear)) {
+        if (
+          this.userLibrary[i].dateFinishedthis &&
+          this.userLibrary[i].dateFinished.includes(this.currentYear)
+        ) {
           annualResult += Number(this.userLibrary[i].pageCount);
           this.totalAnnualBooks++;
         }
