@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartType, ChartOptions, ChartData } from 'chart.js';
-import { LocalStorageService } from 'src/app/Services/local-storage.service';
-import { UserService } from 'src/app/Services/user.service';
+import { ChartOptions, ChartData } from 'chart.js';
 
 @Component({
   selector: 'app-chart',
@@ -15,12 +13,7 @@ export class ChartComponent implements OnInit {
 
   chartOptions: ChartOptions = {
     responsive: true,
-    plugins: {
-      /*title: {
-        display: true,
-        text: 'Your book stats',
-      },*/
-    },
+    plugins: {},
   };
 
   constructor() {}

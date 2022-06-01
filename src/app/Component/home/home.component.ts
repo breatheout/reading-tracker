@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from 'src/app/Models/book.model';
 import { BookPost } from 'src/app/Models/bookpost.model';
 import { UserService } from 'src/app/Services/user.service';
 

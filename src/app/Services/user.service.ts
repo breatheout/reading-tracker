@@ -6,7 +6,8 @@ import { User } from '../Models/user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private httpDownloadOptions: any;
+  url: string = 'https://reading-tracker-application.herokuapp.com';
+  private httpDownloadOptions: Object;
 
   constructor(private http: HttpClient) {
     this.httpDownloadOptions = {
@@ -19,68 +20,43 @@ export class UserService {
   }
 
   register(user: User): Promise<User> {
-    return this.http
-      .post<User>(
-        'https://reading-tracker-application.herokuapp.com/api/register',
-        user
-      )
-      .toPromise();
+    return this.http.post<User>(this.url + '/api/register', user).toPromise();
   }
 
   updatePassword(passwords: {}): Promise<string> {
     return this.http
-      .put<string>(
-        'https://reading-tracker-application.herokuapp.com/api/user/password',
-        passwords
-      )
+      .put<string>(this.url + '/api/user/password', passwords)
       .toPromise();
   }
 
   downloadUserData() {
     return this.http
-      .get(
-        'https://reading-tracker-application.herokuapp.com/api/download',
-        this.httpDownloadOptions
-      )
+      .get(this.url + '/api/download', this.httpDownloadOptions)
       .toPromise();
   }
 
   deleteUser() {
-    return this.http
-      .delete('https://reading-tracker-application.herokuapp.com/api/delete')
-      .toPromise();
+    return this.http.delete(this.url + '/api/delete').toPromise();
   }
 
   getUserInfo() {
-    return this.http
-      .get<any>(
-        'https://reading-tracker-application.herokuapp.com/api/user/info'
-      )
-      .toPromise();
+    return this.http.get<any>(this.url + '/api/user/info').toPromise();
   }
 
   getUserLibrary(type?: string, payload?: any): Promise<any> {
     return this.http
-      .post<any>(
-        'https://reading-tracker-application.herokuapp.com/api/user/library/',
-        {
-          payload,
-          type,
-        }
-      )
+      .post<any>(this.url + '/api/user/library/', {
+        payload,
+        type,
+      })
       .toPromise();
   }
 
   checkUserHasBook(bookId: string): any {
-    return this.http
-      .get(
-        'https://reading-tracker-application.herokuapp.com/api/user/book/' +
-          bookId
-      )
-      .toPromise();
+    return this.http.get(this.url + '/api/user/book/' + bookId).toPromise();
   }
 
-  /* To implement infinite scroll (abandoned feature) */
+  /* To implement infinite scroll (abandoned feature)
   getUserLibraryObservable(
     pagenum: number,
     pagesize: number,
@@ -93,14 +69,11 @@ export class UserService {
     }
     const spacesReplaced = type.replace(' ', '-');
     return this.http.post<any>(
-      'https://reading-tracker-application.herokuapp.com/api/observable/user/library/' +
-        pagenum +
-        '/' +
-        pagesize,
+      this.url + '/api/observable/user/library/' + pagenum + '/' + pagesize,
       {
         payload,
         spacesReplaced,
       }
     );
-  }
+  }*/
 }

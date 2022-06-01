@@ -19,7 +19,7 @@ export class ShelfViewComponent implements OnInit {
   orderFilter: FormControl;
   sortingForm: FormGroup;
 
-  /*
+  /* INFINITE SCROLL WITH OBSERVABLES ABANDONED FEATURE
   obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   items$: Observable<any> = this.obsArray.asObservable();
   currentPage: number = 1;
@@ -30,12 +30,10 @@ export class ShelfViewComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private bookService: BookService,
-    private localStorageService: LocalStorageService
+    private bookService: BookService
   ) {
     this.sortFilter = new FormControl('', []);
 
@@ -111,21 +109,18 @@ export class ShelfViewComponent implements OnInit {
   async goToRead(): Promise<void> {
     await this.router.navigateByUrl('shelf/read').then(() => {
       this.ngOnInit();
-      //window.location.reload();
     });
   }
 
   async goToReading(): Promise<void> {
     await this.router.navigateByUrl('shelf/reading').then(() => {
       this.ngOnInit();
-      //window.location.reload();
     });
   }
 
   async goToWantToRead(): Promise<void> {
     await this.router.navigateByUrl('shelf/want-to-read').then(() => {
       this.ngOnInit();
-      //window.location.reload();
     });
   }
 
@@ -133,7 +128,7 @@ export class ShelfViewComponent implements OnInit {
     this.router.navigateByUrl('book/' + bookId);
   }
 
-  /*
+  /* INFINITE SCROLL WITH OBSERVABLES ABANDONED FEATURE
   getData() {
     if (this.obsDelete != null) {
       this.obsDelete.unsubscribe();

@@ -6,25 +6,20 @@ import { BookPost } from '../Models/bookpost.model';
   providedIn: 'root',
 })
 export class BookService {
+  url: string = 'https://reading-tracker-application.herokuapp.com';
   constructor(private http: HttpClient) {}
 
   addBook(book: BookPost) {
     return this.http
-      .post<BookPost>(
-        'https://reading-tracker-application.herokuapp.com/api/book/add',
-        book
-      )
+      .post<BookPost>(this.url + '/api/book/add', book)
       .toPromise();
   }
 
   deleteBook(bookId: string) {
     return this.http
-      .delete(
-        'https://reading-tracker-application.herokuapp.com/api/book/delete',
-        {
-          body: { bookId: bookId },
-        }
-      )
+      .delete(this.url + '/api/book/delete', {
+        body: { bookId: bookId },
+      })
       .toPromise();
   }
 }

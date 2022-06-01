@@ -48,7 +48,11 @@
         <p class="lead">
           You have
           <span *ngIf="userLibrary">{{ userLibrary.length }}</span>
-          <span *ngIf="!userLibrary"> 0 </span> books on your shelves
+          <span *ngIf="!userLibrary"> 0 </span> book<span
+            *ngIf="userLibrary.length > 1"
+            >s</span
+          >
+          on your shelves
         </p>
       </div>
     </div>

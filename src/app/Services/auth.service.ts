@@ -8,37 +8,22 @@ import { User } from '../Models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
+  url: string = 'https://reading-tracker-application.herokuapp.com';
   constructor(private http: HttpClient) {}
 
   login(auth: Auth): Promise<Auth> {
-    return this.http
-      .post<Auth>(
-        'https://reading-tracker-application.herokuapp.com/api/login',
-        auth
-      )
-      .toPromise();
+    return this.http.post<Auth>(this.url + '/api/login', auth).toPromise();
   }
 
   logout(): Promise<void> {
-    return this.http
-      .delete<void>(
-        'https://reading-tracker-application.herokuapp.com/api/logout'
-      )
-      .toPromise();
+    return this.http.delete<void>(this.url + '/api/logout').toPromise();
   }
 
   verify(): Observable<object> {
-    return this.http.get(
-      'https://reading-tracker-application.herokuapp.com/api/verify'
-    );
+    return this.http.get(this.url + '/api/verify');
   }
 
   resetPassword(user: User): Promise<User> {
-    return this.http
-      .post<User>(
-        'https://reading-tracker-application.herokuapp.com/api/reset',
-        user
-      )
-      .toPromise();
+    return this.http.post<User>(this.url + '/api/reset', user).toPromise();
   }
 }

@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async downloadUserData(): Promise<void> {
-    await this.userService.downloadUserData().then((buffer) => {
+    await this.userService.downloadUserData().then((buffer: any) => {
       const data: Blob = new Blob([buffer], {
         type: 'text/csv;charset=utf-8',
       });

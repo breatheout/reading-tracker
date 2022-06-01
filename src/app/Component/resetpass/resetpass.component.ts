@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user.model';
 import { AuthService } from 'src/app/Services/auth.service';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
-import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
@@ -29,7 +28,6 @@ export class ResetpassComponent implements OnInit {
     private authService: AuthService,
     private sharedService: SharedService,
     private headerMenusService: HeaderMenusService,
-    private localStorageService: LocalStorageService,
     private router: Router
   ) {
     this.forgottenUser = new User('', '', 'forgottenPassword');

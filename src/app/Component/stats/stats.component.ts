@@ -44,10 +44,8 @@ export class StatsComponent implements OnInit {
     await this.getPagesData();
 
     this.chartDataGenres = {
-      // Las labels deberia ser el array con los generos de los libros
       labels: [''],
       datasets: [
-        // labels es el eje horizontal, data son los numeros que aparecen en el eje vertical, la tension es solo para los line charts
         {
           label: this.top5Genres[0],
           data: [this.top5GenresData[0]],
@@ -79,10 +77,8 @@ export class StatsComponent implements OnInit {
       ],
     };
     this.chartDataAuthors = {
-      // Las labels deberia ser el array con los generos de los libros
       labels: [''],
       datasets: [
-        // labels es el eje horizontal, data son los numeros que aparecen en el eje vertical, la tension es solo para los line charts
         {
           label: this.top5Authors[0],
           data: [this.top5AuthorsData[0]],
@@ -125,7 +121,6 @@ export class StatsComponent implements OnInit {
 
   getTopGenres(): void {
     var result = [];
-
     // Create a single array with all the genres
     for (const book of this.userLibrary) {
       // Filter tag 'general' out

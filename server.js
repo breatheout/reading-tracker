@@ -1,14 +1,6 @@
-// type npm run devStart to keep the server running
-
-//require("dotenv").config(); 10/05/2022 19:37 commented out
-
 const express = require("express");
 const path = require("path");
 const app = express();
-
-console.log(__filename);
-console.log(__dirname);
-console.log("////////////////////////");
 
 const PORT = process.env.PORT || "8080";
 
@@ -34,7 +26,7 @@ db.sync();
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://reading-tracker-application.herokuapp.com/",
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
@@ -43,7 +35,6 @@ app.use(
 app.post("/api/reset", async (req, res) => {
   const password = require("crypto").randomBytes(8).toString("hex");
   const hashedPassword = await bcrypt.hash(password, 10);
-  console.log("New password generated:" + password);
   const query = await Users.findAll({
     where: {
       username: req.body.username,
@@ -72,10 +63,8 @@ app.post("/api/reset", async (req, res) => {
     };
     transporter.sendMail(options, function (err, info) {
       if (err) {
-        console.log(err);
         return res.status(500).send(err);
       }
-      console.log("Sent:" + info.response);
       return res.json(
         "Your password has been reset. Please check your email account."
       );
@@ -88,7 +77,6 @@ app.post("/api/reset", async (req, res) => {
 //REGISTER USER
 app.post("/api/register", async (req, res) => {
   try {
-    console.log("entra en el try");
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = {
       username: req.body.username,
@@ -96,7 +84,6 @@ app.post("/api/register", async (req, res) => {
       password: hashedPassword,
     };
     if (user.username && user.email && user.password) {
-      console.log("hace la primera query");
       const query = await Users.findAll({
         attributes: ["username"],
         where: {
@@ -104,16 +91,13 @@ app.post("/api/register", async (req, res) => {
         },
       });
       if (!query.length) {
-        console.log("query.lenght es false asi que anade el usuario");
         const newUser = await Users.create({
           username: user.username,
           email: user.email,
           password: user.password,
         });
-        console.log("newUser auto-generated ID:", newUser.user_id);
         res.status(201).send({ message: "User created", statusCode: 201 });
       } else {
-        //db.end();
         res
           .status(422)
           .send({ message: "Username already taken", statusCode: 422 });
@@ -126,24 +110,16 @@ app.post("/api/register", async (req, res) => {
 
 //LOGIN AND AUTHENTICATE
 app.post("/api/login", async (req, res) => {
-  // Authenticate users starts
-  console.log("empieza la funcion de login");
   const user = await Users.findAll({
     where: {
       username: req.body.username,
     },
   });
-  /*.promise()
-    .query(`SELECT * FROM USERS WHERE username='${req.body.username}'`);*/
   if (user == null) {
-    console.log("dentro del user == null");
     return res.status(400).send("Cannot find user");
   }
   try {
-    console.log("entra en el try");
-    console.log("password is: ", user[0].password);
     const test = await bcrypt.compare(req.body.password, user[0].password);
-    console.log("el bcrypt compare es", test);
     if (test) {
       const username = req.body.username;
       const userAux = { username: username };
@@ -162,17 +138,15 @@ app.post("/api/login", async (req, res) => {
         access_token: access_token,
         refresh_token: refresh_token,
       });
-      console.log("LOGIN CON EXITO");
     } else {
       res.send("Not Allowed");
     }
   } catch {
     res.status(500).send();
   }
-  // Authenticate users ends
 });
 
-// DOWNLOAD USER DATA AS CSV - JWT - AMENDED - 06-05-2022
+// DOWNLOAD USER DATA AS CSV
 app.get("/api/download", authenticateToken, async (req, res) => {
   Books.findAll({
     where: {
@@ -232,7 +206,7 @@ app.get("/api/download", authenticateToken, async (req, res) => {
   });
 });
 
-// DELETE ACCOUNT - JWT - AMENDED - 06-05-2022
+// DELETE ACCOUNT
 app.delete("/api/delete", authenticateToken, async (req, res) => {
   Books.destroy({
     where: {
@@ -247,7 +221,7 @@ app.delete("/api/delete", authenticateToken, async (req, res) => {
   res.sendStatus(200);
 });
 
-// ADD BOOK TO TABLE - JWT - AMENDED - 06-05-2022
+// ADD BOOK TO TABLE
 app.post("/api/book/add", authenticateToken, async (req, res) => {
   const username = req.user.username;
   const book = {
@@ -304,7 +278,7 @@ app.post("/api/book/add", authenticateToken, async (req, res) => {
   }
 });
 
-// DELETE BOOK FROM TABLE - JWT - AMENDED - 06-05-2022
+// DELETE BOOK FROM TABLE
 app.delete("/api/book/delete", authenticateToken, async (req, res) => {
   Books.destroy({
     where: {
@@ -315,7 +289,7 @@ app.delete("/api/book/delete", authenticateToken, async (req, res) => {
   res.status(204);
 });
 
-// CHECK IF USER HAS BOOK IN LIBRARY - JWT - AMENDED - 06-05-2022
+// CHECK IF USER HAS BOOK IN LIBRARY
 app.get("/api/user/book/:bookId", authenticateToken, async (req, res) => {
   try {
     const username = req.user.username;
@@ -334,7 +308,7 @@ app.get("/api/user/book/:bookId", authenticateToken, async (req, res) => {
   }
 });
 
-//GET USER INFO - JWT - AMENDED - 06-05-2022
+//GET USER INFO
 app.get("/api/user/info", authenticateToken, async (req, res) => {
   const user = await Users.findAll({
     attributes: ["user_id", "username", "email"],
@@ -345,7 +319,7 @@ app.get("/api/user/info", authenticateToken, async (req, res) => {
   res.json(user);
 });
 
-//UPDATE USER PASSWORD - JWT - AMENDED - 06-05-2022
+//UPDATE USER PASSWORD
 app.put("/api/user/password", authenticateToken, async (req, res) => {
   const user = await Users.findAll({
     where: {
@@ -369,7 +343,7 @@ app.put("/api/user/password", authenticateToken, async (req, res) => {
   }
 });
 
-//GET USER LIBRARY + GET BY TYPE - JWT - AMENDED 06/05/2022
+//GET USER LIBRARY + GET BY TYPE
 app.post("/api/user/library", authenticateToken, async (req, res) => {
   let payload, query;
   if (req.body.type) {
@@ -407,7 +381,7 @@ app.post("/api/user/library", authenticateToken, async (req, res) => {
 });
 
 // NOT USED IN FINAL VERSION
-//GET USER LIBRARY + GET BY TYPE - JWT - OBSERVABLES
+//GET USER LIBRARY + GET BY TYPE - OBSERVABLE FOR INFINITE SCROLLING
 app.post(
   "/api/observable/user/library/:pagenum/:pagesize",
   authenticateToken,
@@ -451,7 +425,7 @@ app.post(
   }
 );
 
-//LOGOUT WITH JWT
+//LOGOUT
 app.delete("/api/logout", authenticateToken, async (req, res) => {
   await Users.update(
     { access_token: "" },
@@ -486,14 +460,11 @@ app.post("/api/token", async (req, res) => {
 app.get("/api/verify", (req, res) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  console.log(token);
   if (token == null) {
     return res.json({ authenticated: false });
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    console.log("entra");
     if (err) return res.json({ authenticated: false });
-    console.log("return true");
     return res.json({ authenticated: true });
   });
 });
@@ -527,5 +498,5 @@ app.get("/*", function (req, res) {
 
 // LISTEN
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server is running on port ${PORT}`);
 });
