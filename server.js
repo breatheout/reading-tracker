@@ -29,7 +29,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-db.sync({ force: true });
+db.sync();
 //CHANGE ORIGIN WHEN FINISHED TESTING
 app.use(express.json());
 app.use(
