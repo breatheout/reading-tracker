@@ -48,44 +48,49 @@
       <span class="badge bg-dark">{{ annualPages }}</span> pages!
     </p>
   </div>
-  <div class="mx-auto my-5" *ngIf="largestBook">
-    <h1 class="h4">The longest book you have read is:</h1>
-    <img class="thumbnail" src="{{ largestBook.cover }}" />
+  <h2 *ngIf="userLibrary.length < 2">Keep reading to unlock more stats</h2>
+  <div *ngIf="userLibrary.length >= 2">
+    <div class="mx-auto my-5" *ngIf="largestBook">
+      <h1 class="h4">The longest book you have read is:</h1>
+      <img class="thumbnail" src="{{ largestBook.cover }}" />
+    </div>
+    <div class="mx-auto my-5" *ngIf="shortestBook">
+      <h1 class="h4">The shortest book you have read is:</h1>
+      <img class="thumbnail" src="{{ shortestBook.cover }}" />
+    </div>
   </div>
-  <div class="mx-auto my-5" *ngIf="shortestBook">
-    <h1 class="h4">The shortest book you have read is:</h1>
-    <img class="thumbnail" src="{{ shortestBook.cover }}" />
+  <div *ngIf="userLibrary.length >= 5">
+    <form action="" class="btn-group-vertical mx-auto my-5">
+      <button
+        class="btn btn-dark"
+        type="submit"
+        (click)="changeDisplay()"
+        [disabled]="displayTopGenres"
+      >
+        TOP 5 Genres
+      </button>
+      <button
+        class="btn btn-dark"
+        type="submit"
+        (click)="changeDisplay()"
+        [disabled]="displayTopAuthors"
+      >
+        TOP 5 Authors
+      </button>
+    </form>
+    <app-chart
+      *ngIf="displayTopGenres"
+      #chartchild
+      [type]="barChart"
+      [top5]="top5Genres"
+      [chartData]="chartDataGenres"
+    ></app-chart>
+    <app-chart
+      *ngIf="displayTopAuthors"
+      #chartchild
+      [type]="barChart"
+      [top5]="top5Authors"
+      [chartData]="chartDataAuthors"
+    ></app-chart>
   </div>
-  <form action="" class="btn-group-vertical mx-auto my-5">
-    <button
-      class="btn btn-dark"
-      type="submit"
-      (click)="changeDisplay()"
-      [disabled]="displayTopGenres"
-    >
-      TOP 5 Genres
-    </button>
-    <button
-      class="btn btn-dark"
-      type="submit"
-      (click)="changeDisplay()"
-      [disabled]="displayTopAuthors"
-    >
-      TOP 5 Authors
-    </button>
-  </form>
-  <app-chart
-    *ngIf="displayTopGenres"
-    #chartchild
-    [type]="barChart"
-    [top5]="top5Genres"
-    [chartData]="chartDataGenres"
-  ></app-chart>
-  <app-chart
-    *ngIf="displayTopAuthors"
-    #chartchild
-    [type]="barChart"
-    [top5]="top5Authors"
-    [chartData]="chartDataAuthors"
-  ></app-chart>
 </div>
