@@ -84,10 +84,10 @@ export class ProfileComponent implements OnInit {
     );
     if (confirmation) {
       this.userService.deleteUser();
+      alert('Your account has been deleted');
+      localStorage.clear();
+      this.router.navigateByUrl('home');
     }
-    alert('Your account has been deleted');
-    localStorage.clear();
-    this.router.navigateByUrl('home');
   }
 
   private async updatePasswordSuccess(): Promise<void> {
